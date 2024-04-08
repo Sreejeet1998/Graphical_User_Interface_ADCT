@@ -1,0 +1,1400 @@
+{
+  "dc.contributor.author": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.editor": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.illustrator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.advisor": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.creator.researcher": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@projectDirector": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@choreographer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@videographer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@lyricist": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@afterword": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@foreword": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@reviewer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@actor": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@bookCoordinator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@chairman": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@cinematographer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@commentator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@compiler": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@director": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+    
+  },
+  "dc.contributor.other@dramatist": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@interviewee": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@interviewer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@inventor": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@investigator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@journalist": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@judge": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@metaCoordinator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@moderator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@musicArranger": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@newsAgency": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@organization": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@owner": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@petitioner": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@photographer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@producer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@productionHouse": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@playwright": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@proofListener": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@reader": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@respondent": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@screenplay": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@speaker": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@studyGroup": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@translator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@transliterator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@versionCreator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@voiceActor": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@architect": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@artist": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@cartographer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@cartoonist": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@chairperson": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@composer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@designer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@draftsman": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@librettist": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@performer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@reporter": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@sculptor": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@transcriber": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@typographer": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.contributor.other@courseCoordinator": {
+    "dataType": "person",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.language.iso": {
+    "dataType": "language",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.coverage.spatial": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.coverage.temporal": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.description.abstract": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.description.sponsorship": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.description.tableofcontents": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.description.uri": {
+    "dataType": "uri",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": true
+  },
+  "dc.description.searchVisibility": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.description": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.isbn": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.identifier.issn": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.identifier.uri": {
+    "dataType": "uri",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": true
+  },
+  "dc.identifier.citation": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@accessionNo": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@accessionDate": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@alternateContentUri": {
+    "dataType": "uri",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": true
+  },
+  "dc.identifier.other@barcode": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@alternateWebpageUri": {
+    "dataType": "uri",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@ark": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@arXiv": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@cdisbn": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@cdissn": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@coden": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@itemId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@doi": {
+    "dataType": "uri",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@edition": {
+    "dataType": "Integer",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@editionStatement": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@conferenceProceedings": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@eissn": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@eisbn": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@gbookId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@issue": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@journal": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@lawCaseBench": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@lawCaseNumber": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@lawCaseType": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@oclc": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@openlibraryEditionId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@openlibraryWorkId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@part": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@patentNo": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@pmcId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@pmId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@registrationNo": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@repecId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@standardNo": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@technicalPublicationNo": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@uniqueId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@upc": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@volume": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@youtubeId": {
+    "dataType": "uri",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@elocationId": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.identifier.other@lccn": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.ddc": {
+    "dataType": "ddc",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.mesh": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@callNumberDDC": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@ccl": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },  
+  "dc.subject.other@csc": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@ipc": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@jel": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@lcc": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@lcsh": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@mos": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@msc": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@nlm": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@pacs": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.other@udc": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject": {
+    "dataType": "shortText",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.subject.prerequisitetopic": {
+    "dataType": "shortText",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.relation.ispartofseries": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.relation.isreferencedby": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.relation.references": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.relation.replaces": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.relation.isreplacedby": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.relation.requires": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  }, 
+  "dc.relation.ispartof": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },  
+  "dc.relation.haspart": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.relation": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.source": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.source.uri": {
+    "dataType": "uri",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": true
+  },
+  "dc.format.extent@weight": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@aspectRatio": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@diameter": {
+    "dataType": "Integer",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@dimensionHeight": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@dimensionWidth": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@endingPage": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@folioCount": {
+    "dataType": "Integer",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@medium": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@pageCount": {
+    "dataType": "Integer",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@ppi": {
+    "dataType": "Integer",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@resolution": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@size_in_Bytes": {
+    "dataType": "Integer",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.extent@startingPage": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.format.mimetype": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.type": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.type.degree": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.awarded": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.copyright": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.created": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.issued": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.submitted": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.other@digitalPublicationDate": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.other@copyrightExpiryDate": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.other@lawCaseYear": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.other@lawJudgmentDate": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.date.other@sponsordate": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.title": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.title.alternative": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.rights.holder": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.rights.license": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+	"validation":false,
+    "multiSpace": false
+  },
+  "dc.rights.uri": {
+    "dataType": "uri",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": true
+  },
+  "dc.rights.accessRights": {
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.publisher": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.publisher.date": {
+    "dataType": "date",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "dc.publisher.institution": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.publisher.department": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "dc.publisher.place": {										  
+    "dataType": "text",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.educationalUse": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.timeRequired": {
+    "dataType": "duration",
+    "multiValued": false,
+    "controlled": false,
+	"validation": false,
+    "multiSpace": false
+  },
+  "lrmi.typicalAgeRange": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.interactivityType": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.learningResourceType": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.educationalRole": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.educationalAlignment.educationalFramework": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.educationalAlignment.educationalLevel": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.educationalAlignment.pedagogicObjective": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "lrmi.educationalAlignment.difficultyLevel": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": true,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.uniqueInfo": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@contributor": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@topic": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@collectionHandle": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@authorInfo": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@DegreeType": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@DocumentType": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@MeshHeading": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@MeshPublicationType": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@MeshQualifier": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@MeshSubjectLimit": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@MeshTreeNumber": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@note": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@RightsStatement": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@references": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "multiSpace": false
+  },
+  "ndl.sourceMeta.additionalInfo@relatedContentUrl": {
+    "dataType": "uri",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": true
+  },
+  "ndl.sourceMeta.translation": {
+    "dataType": "text",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.sequenceNo": {
+    "dataType": "Integer",
+    "multiValued": false,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.resourceType": {
+    "dataType": "treePath",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.subject.classification": {
+    "dataType": "treePath",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  },
+  "ndl.subject.ddc": {
+    "dataType": "treePath",
+    "multiValued": true,
+    "controlled": false,
+    "validation": false,
+    "multiSpace": false
+  }
+}
