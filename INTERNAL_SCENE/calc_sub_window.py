@@ -20,6 +20,8 @@ from GUIWINDOW.utils import dumpException
 DEBUG = True
 DEBUG_CONTEXT = False
 num = []
+opcode = []
+top = '{"Fields":{'
 
 class CalculatorSubWindow(NodeEditorWidget):
     def __init__(self):
@@ -92,19 +94,38 @@ class CalculatorSubWindow(NodeEditorWidget):
     def onDrop(self, event):
         if event.mimeData().hasFormat(LISTBOX_MIMETYPE):
             eventData = event.mimeData().data(LISTBOX_MIMETYPE)
+            #print("Event Data -", eventData)
             dataStream = QDataStream(eventData, QIODevice.ReadOnly)
+            Id = id(dataStream)
+            print(Id)
+            print("datastrem =", dataStream)
             pixmap = QPixmap()
             dataStream >> pixmap
             op_code = dataStream.readInt()
             text = dataStream.readQString()
-            global num
-            num.append(op_code)
+            print(text)
+            global num, opcode
+            num.append(Id)
+            opcode.append(op_code)
+            # for i in range(len(opcode)):
+            #     global top
+            #     if opcode[i] == 1:
+            #         list1 = '"ndl.SourceMeta.additionalInfo@note":{'
+            #         top = "{} {}".format(top,list1)
+            #     elif opcode[i] == 3:
+            #         action = '"action": ["lookUp"]},'
+            #         #top2 = "{}{}".format(list1,action)
+            #         top = "{}{}".format(top,action)
+            #     elif opcode[i] == 4:
+            #         list1 = {"Fields":{"ndl.SourceMeta.additionalInfo@note": {"action": ["moveField"]}}}
+            # close = '}}}'
+            # top = "{}{}".format(top,close)
             #if op_code == CalcNode.op_code: num = CalcNode_Input.Nd_number
             #else: pass
             mouse_position = event.pos()
             scene_position = self.scene.grScene.views()[0].mapToScene(mouse_position)
 
-            if DEBUG: print("GOT DROP: [%d] '%s'" % (op_code, text), "mouse:", mouse_position, "scene:", scene_position, "Number", num)
+            if DEBUG: print("GOT DROP: [%d] '%s'" % (op_code, text), opcode, "mouse:", mouse_position, "scene:", scene_position, "Number", num)
 
             try:
                 node = get_class_from_opcode(op_code)(self.scene)
@@ -118,8 +139,6 @@ class CalculatorSubWindow(NodeEditorWidget):
         else:
             # print(" ... drop ignored, not requested format '%s'" % LISTBOX_MIMETYPE)
             event.ignore()
-
-
     def contextMenuEvent(self, event):
         try:
             item = self.scene.getItemAt(event.pos())

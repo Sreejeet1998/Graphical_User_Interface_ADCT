@@ -101,7 +101,7 @@ class NodeEditorWindow(QMainWindow):
 
     def setTitle(self):
         """Function responsible for setting window title"""
-        title = "Node Editor - "
+        title = "GUI -"
         title += self.getCurrentNodeEditorWidget().getUserFriendlyFilename()
 
         self.setWindowTitle(title)

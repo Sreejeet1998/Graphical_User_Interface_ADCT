@@ -21,7 +21,7 @@ from GUIWINDOW.node_scene_clipboard import SceneClipboard
 from INTERNAL_SCENE.nodes.output import calcInputContent
 from INTERNAL_SCENE.calc_conf import CALC_NODES
 DEBUG_REMOVE_WARNINGS = False
-f = '{"Fields": {}}'
+fields = {"Fields": {}}
 
 class InvalidFile(Exception): pass
 
@@ -320,103 +320,79 @@ class Scene(Serializable):
 
 
     def dumpJson(self,filename:str):
-        f = '{"Fields": {}}'
-        from INTERNAL_SCENE.calc_sub_window import num
+        from INTERNAL_SCENE.calc_sub_window import opcode
+        from INTERNAL_SCENE.calc_window import filepath,outlist
+        list_name = ["dc.contributor.author","dc.contributor.editor","dc.contributor.illustrator","dc.contributor.advisor","dc.creator.researcher","dc.contributor.other@projectDirector","dc.contributor.other@choreographer","dc.contributor.other@videographer","dc.contributor.other@lyricist","dc.contributor.other@foreword"]
         nodes, edges = [], []
         for node in self.nodes: nodes.append(node.serialize())
         for edge in self.edges: edges.append(edge.serialize())
-        l = int(len(edges)/2)
-        num.pop(0)
-
-        if len(edges) > 0 :
-            for i in range(len(num)):
-
-                if num[i] == 1:
-                    f0 = '{"Fields": {}}'
-                    f = ",".join([f,f0])
-                    #f = f.replace("\\","")
-                    #f = json.loads(f)
-                    with open(filename, "w") as file:
-                        file.write(json.dumps(f, indent=4))
-
-                        print("saving to", filename, "was successfull.")
-                        print('did enter')
-                        print(f)
-                        print(type(f))
-                        self.has_been_modified = False
-                        self.filename = filename
-                elif num[i] == 2:
+        l = int(len(edges) / 2)
+        count = 0
+        #print("yeah",outlist)
+        if len(edges) > 1:
+            for i in range(len(opcode)):
+                global fields
+                print("it is fiilepath:",filepath)
+                #outlist = json.dumps(outlist)
+                print("Outlist",outlist)
+                #finame = outlist[i]
+                if opcode[i] == 1:
+                    count = count+1
+                    hold = outlist[i]
+                    f_name = {outlist[i]:{}}
+                    fields["Fields"].update(f_name)
+                    print(fields)
+                    print("count",count)
+                elif opcode[i] == 2:
                     pass
-                elif num[i] == 3:
-                    f = {"Fields": INTERNAL_SCENE.nodes.output.CalcNode_LookUp.f2}
-                    # f = json.loads(f)
-                    with open(filename, "w") as file:
-                        file.write(json.dumps(f, indent=4))
+                elif opcode[i] == 3:
+                    action_lu = {"action":["lookUp"]}
+                    f_name[hold].update(action_lu)
+                    #fields = '{}{}'.format(fields, INTERNAL_SCENE.nodes.output.CalcNode_LookUp.action_lu)
+                    print(fields)
+                elif opcode[i] == 4:
+                    action_mf = {"action": ["moveField"]}
+                    f_name[hold].update(action_mf)
+                    #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_MoveField.action_mf)
+                    print(fields)
+                elif opcode[i] == 5:
+                    action_cd = {"action": ["copyData"]}
+                    f_name[hold].update(action_cd)
+                    #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_CopyData.action_cd)
+                    print(fields)
+                elif opcode[i] == 6:
+                    action_um = {"action": ["useMap"]}
+                    f_name[hold].update(action_um)
+                    #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_UseMap.action_um)
+                    print(fields)
+                elif opcode[i] == 7:
+                    action_del = {"action": ["deleteField"]}
+                    f_name[hold].update(action_del)
+                    #fields = '{}{}'.format(fields, INTERNAL_SCENE.nodes.output.CalcNode_delete.action_del)
+                    print(fields)
 
-                        print("saving to", filename, "was successfull.")
-                        print('its happening argh')
-                        # print(type(c))
-                        self.has_been_modified = False
-                        self.filename = filename
-                elif num[i] == 4:
-                    f = {"Fields": INTERNAL_SCENE.nodes.output.CalcNode_MoveField.f2}
-                    # f = json.loads(f)
-                    with open(filename, "w") as file:
-                        file.write(json.dumps(f, indent=4))
+            print(f_name)
+            #fields = fields.replace("\'", "\"")
+            #fields = fields[:-1]
 
-                        print("saving to", filename, "was successfull.")
-                        print('its happening argh')
-                        # print(type(c))
-                        self.has_been_modified = False
-                        self.filename = filename
-                elif num[i] == 5:
-                    f = {"Fields": INTERNAL_SCENE.nodes.output.CalcNode_CopyData.f2}
-                    # f = json.loads(f)
-                    with open(filename, "w") as file:
-                        file.write(json.dumps(f, indent=4))
-
-                        print("saving to", filename, "was successfull.")
-                        print('its happening argh')
-                        # print(type(c))
-                        self.has_been_modified = False
-                        self.filename = filename
-                elif num[i] == 6:
-                    f = {"Fields": INTERNAL_SCENE.nodes.output.CalcNode_UseMap.f2}
-                    # f = json.loads(f)
-                    with open(filename, "w") as file:
-                        file.write(json.dumps(f, indent=4))
-
-                        print("saving to", filename, "was successfull.")
-                        print('its happening argh')
-                        # print(type(c))
-                        self.has_been_modified = False
-                        self.filename = filename
-                elif num[i] == 7:
-                        print("NOOOO!!")
-                        #global f
-                        f = {"Fields": INTERNAL_SCENE.nodes.output.CalcNode_Input.f1}
-                            #f = json.loads(f)
-                        with open(filename, "w") as file:
-                            file.write(json.dumps(f, indent=4))
-
-                            print("saving to", filename, "was successfull.")
-                            print('its happening argh')
-                            #print(type(c))
-                            self.has_been_modified = False
-                            self.filename = filename
-                else:
-                   # f = '{"Fields": {}}'
-                    f = json.loads(f)
-                    with open(filename, "w") as file:
-                        file.write(json.dumps(f, indent=4))
-
-                        print("saving to", filename, "was successfull.")
-                        self.has_been_modified = False
-                        self.filename = filename
-        else:
-            f = json.loads(f)
+            # if count<=1: fields = fields+"}}"
+            # elif count >1:
+            #     for itr in range(count-1):fields = fields+"}"
+            #
+            # print("Before load", fields)
+            #fields = json.loads(fields)
             with open(filename, "w") as file:
-                file.write(json.dumps(f, indent=4))
+                file.write(json.dumps(fields, indent=4))
+
+                print("saving to", filename, "was successfull.")
+                self.has_been_modified = False
+                self.filename = filename
+        else:
+            fields = '{"Fields":{}}'
+            fields = json.loads(fields)
+            print(fields)
+            with open(filename, "w") as file:
+                file.write(json.dumps(fields, indent=4))
 
                 print("saving to", filename, "was successfull.")
                 self.has_been_modified = False

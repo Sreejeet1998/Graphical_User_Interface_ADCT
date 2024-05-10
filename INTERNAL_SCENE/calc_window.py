@@ -48,10 +48,10 @@ Edge.registerEdgeValidator(edge_cannot_connect_input_and_output_of_same_node)
 
 
 DEBUG = False
-
-
+filepath= ''
+outlist=[]
 class CalculatorWindow(NodeEditorWindow):
-
+    outlist = []
     def initUI(self):
         self.name_company = 'NDLI'
         self.name_product = 'GUI'
@@ -159,6 +159,7 @@ class CalculatorWindow(NodeEditorWindow):
         except Exception as e: dumpException(e)
 
     def onOSFile(self):
+        global  filepath
         filepath = filedialog.askopenfilename()
 
             # file = open(filepath,'r')
@@ -183,11 +184,13 @@ class CalculatorWindow(NodeEditorWindow):
         with open(filepath, 'r') as json_file:
             data = json.load(json_file)
 
-            # print(input)
 
-        output = approach(data)
-        print(type(output))
-        print(output)
+        global outlist
+        outlist = approach(data)
+        print("YEs :)")
+        print(type(outlist))
+
+        return outlist
         self.statusBar().showMessage("File %s loaded" % filepath, 5000)
         #print("Only keys =", output)
 
@@ -204,6 +207,8 @@ class CalculatorWindow(NodeEditorWindow):
         #except Exception as e:
         #    dumpException()
 
+    #data = onOSFile()
+    print("Data:",filepath)
     def about(self):
         QMessageBox.about(self, "About GUI Example",
                 "<b>Something</b> is being built by <b> Sreejeet Shome </b>")

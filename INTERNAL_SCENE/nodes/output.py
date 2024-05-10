@@ -11,15 +11,17 @@ from GUIWINDOW.node_content_widget import QDMNodeContentWidget
 from GUIWINDOW.node_edge import Edge
 from GUIWINDOW.utils import dumpException
 
+
 field_name = ""
 @register_node(OP_NODE_DELETE)
 class CalcNode_delete(CalcNode):
+
     op_code = OP_NODE_DELETE
     op_title = "deleteField"
     content_label_objname = "calc_node_output"
     Nd_number = 1
     #Fname = CalculatorWindow.onOSFile.output[0]
-    f2 = {"name":{"action":["deleteField"]}}
+    action_del = '"action":["deleteField"]},'
     def __init__(self, scene):
         super().__init__(scene, inputs=[1], outputs=[2])
 
@@ -31,7 +33,7 @@ class CalcNode_LookUp(CalcNode):
     op_title = "lookUp"
     content_label_objname = "calc_node_lookup"
     Nd_number = 2
-    f2 = {"name":{"action": ["lookUp"]}}
+    action_lu = '"action": ["lookUp"]},'
 
     def __init__(self, scene):
         super().__init__(scene, inputs=[1], outputs=[2])
@@ -42,7 +44,7 @@ class CalcNode_MoveField(CalcNode):
     op_title = "moveField"
     content_label_objname = "calc_node_movefield"
     Nd_number = 3
-    f2 = {"name":{"action": ["moveField"]}}
+    action_mf = '"action": ["moveField"]},'
     def __init__(self, scene):
         super().__init__(scene, inputs=[1], outputs=[2])
 
@@ -52,7 +54,7 @@ class CalcNode_CopyData(CalcNode):
     op_title = "copyData"
     content_label_objname = "calc_node_copydata"
     Nd_number = 4
-    f2 = {"name":{"action":["copyData"]}}
+    action_cd = '"action":["copyData"]},'
     def __init__(self, scene):
         super().__init__(scene, inputs=[1], outputs=[2])
 
@@ -62,7 +64,7 @@ class CalcNode_UseMap(CalcNode):
     op_title = "useMap"
     content_label_objname = "calc_node_usemap"
     Nd_number = 5
-    f2 = {"name":{"action": ["useMap"]}}
+    action_um = '"action": ["useMap"]},'
     def __init__(self, scene):
         super().__init__(scene, inputs=[1], outputs=[2])
 
@@ -80,7 +82,13 @@ class CalcNode_UseMap(CalcNode):
 #        super().__init__(scene, inputs=[], outputs=[2])
 class calcInputContent(QDMNodeContentWidget):
     def initUI(self):
-        self.edit = QLineEdit("", self)
+        self.edit = QLineEdit("",self)
+        #self.edit = QComboBox()
+        # self.Layout = QVBoxLayout()
+        # self.Layout.addWidget(self.edit)
+        # self.container = QWidget()
+        # self.container.setLayout(self.Layout)
+        # self.setCentralWidget(self.container)
         self.edit.setAlignment(Qt.AlignRight)
         self.edit.setObjectName(self.node.content_label_objname)
         self.Nd_number = 6
@@ -139,8 +147,6 @@ class CalcNode_Input(CalcNode):
         self.evalChildren()
 
         return self.value
-    f1 = {"name":CalcNode_delete.f2}
-    f = field_name
 
 class CalcOutputContent(QDMNodeContentWidget):
     def initUI(self):
