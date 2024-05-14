@@ -320,14 +320,15 @@ class Scene(Serializable):
 
 
     def dumpJson(self,filename:str):
+        from INTERNAL_SCENE.nodes.output import n_list
         from INTERNAL_SCENE.calc_sub_window import opcode
         from INTERNAL_SCENE.calc_window import filepath,outlist
         list_name = ["dc.contributor.author","dc.contributor.editor","dc.contributor.illustrator","dc.contributor.advisor","dc.creator.researcher","dc.contributor.other@projectDirector","dc.contributor.other@choreographer","dc.contributor.other@videographer","dc.contributor.other@lyricist","dc.contributor.other@foreword"]
         nodes, edges = [], []
         for node in self.nodes: nodes.append(node.serialize())
         for edge in self.edges: edges.append(edge.serialize())
-        l = int(len(edges) / 2)
         count = 0
+        n_list.pop(0)
         #print("yeah",outlist)
         if len(edges) > 1:
             for i in range(len(opcode)):
@@ -338,8 +339,11 @@ class Scene(Serializable):
                 #finame = outlist[i]
                 if opcode[i] == 1:
                     count = count+1
-                    hold = outlist[i]
-                    f_name = {outlist[i]:{}}
+                    #hold = outlist[i]
+                    #f_name = {outlist[i]:{}}
+                    j = n_list.pop(0)
+                    hold = j
+                    f_name = {j:{}}
                     fields["Fields"].update(f_name)
                     print(fields)
                     print("count",count)
@@ -371,7 +375,7 @@ class Scene(Serializable):
                     #fields = '{}{}'.format(fields, INTERNAL_SCENE.nodes.output.CalcNode_delete.action_del)
                     print(fields)
 
-            print(f_name)
+            #print(f_name)
             #fields = fields.replace("\'", "\"")
             #fields = fields[:-1]
 

@@ -10,6 +10,7 @@ from GUIWINDOW.node_socket import LEFT_CENTER, RIGHT_CENTER
 from GUIWINDOW.utils import dumpException
 
 
+
 class CalcGraphicsNode(QDMGraphicsNode):
     def initSizes(self):
         super().initSizes()

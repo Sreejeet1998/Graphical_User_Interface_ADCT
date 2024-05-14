@@ -10,8 +10,8 @@ from INTERNAL_SCENE.calc_node_base import CalcNode, CalcGraphicsNode
 from GUIWINDOW.node_content_widget import QDMNodeContentWidget
 from GUIWINDOW.node_edge import Edge
 from GUIWINDOW.utils import dumpException
-
-
+n_list = []
+#res = ''
 field_name = ""
 @register_node(OP_NODE_DELETE)
 class CalcNode_delete(CalcNode):
@@ -88,16 +88,20 @@ class calcInputContent(QDMNodeContentWidget):
         # self.Layout.addWidget(self.edit)
         # self.container = QWidget()
         # self.container.setLayout(self.Layout)
-        # self.setCentralWidget(self.container)
+        #self.setCentralWidget(self.container)
+        #self.s
         self.edit.setAlignment(Qt.AlignRight)
         self.edit.setObjectName(self.node.content_label_objname)
         self.Nd_number = 6
         #field_name = self.edit
-        print(self.edit)
 
     def serialize(self):
+        global n_list
         res = super().serialize()
+        v = self.edit.text()
+        n_list.append(v) if v not in n_list else n_list
         res['value'] = self.edit.text()
+        print(n_list)
         return str(res)
 
     def deserialize(self, data, hashmap={}):
