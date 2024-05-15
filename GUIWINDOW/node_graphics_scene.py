@@ -4,7 +4,7 @@ A module containing Graphic representation of :class:`~GUIWINDOW.node_scene.Scen
 """
 import math
 from PyQt5.QtWidgets import QGraphicsScene, QWidget
-from qtpy.QtCore import Signal, QRect, QLine, Qt
+from PyQt5.QtCore import pyqtSignal, QRect, QLine, Qt
 from PyQt5.QtGui import QColor, QPen, QFont, QPainter
 from GUIWINDOW.utils import dumpException
 from GUIWINDOW.node_graphics_view import STATE_STRING, DEBUG_STATE
@@ -13,9 +13,9 @@ from GUIWINDOW.node_graphics_view import STATE_STRING, DEBUG_STATE
 class QDMGraphicsScene(QGraphicsScene):
     """Class representing Graphic of :class:`~GUIWINDOW.node_scene.Scene`"""
     #: pyqtSignal emitted when some item is selected in the `Scene`
-    itemSelected = Signal()
+    itemSelected = pyqtSignal()
     #: pyqtSignal emitted when items are deselected in the `Scene`
-    itemsDeselected = Signal()
+    itemsDeselected = pyqtSignal()
 
     def __init__(self, scene: 'Scene', parent: QWidget=None):
         """

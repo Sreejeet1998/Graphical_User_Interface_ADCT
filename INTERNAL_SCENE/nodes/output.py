@@ -1,5 +1,5 @@
-from qtpy.QtWidgets import *
-from qtpy.QtCore import Qt
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import Qt
 
 import INTERNAL_SCENE.calc_window
 import GUIWINDOW.node_scene

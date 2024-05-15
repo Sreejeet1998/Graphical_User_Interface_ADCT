@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QLineEdit
-from qtpy.QtGui import QImage
-from qtpy.QtCore import QRectF
-from qtpy.QtWidgets import QLabel
+from PyQt5.QtGui import QImage
+from PyQt5.QtCore import QRectF
+from PyQt5.QtWidgets import QLabel
 
 from GUIWINDOW.node_node import Node
 from GUIWINDOW.node_content_widget import QDMNodeContentWidget

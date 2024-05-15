@@ -1,6 +1,6 @@
 import os, sys
 from PyQt5.QtWidgets import QApplication, QPushButton
-
+import warnings
 import GUIWINDOW
 
 sys.path.insert(0, os.path.join( os.path.dirname(__file__), "..", ".." ))
@@ -15,6 +15,7 @@ if __name__ == '__main__':
     app.setStyle('Fusion')
 
     wnd = CalculatorWindow()
+    warnings.filterwarnings("ignore")
     wnd.show()
 
     sys.exit(app.exec_())

@@ -2,9 +2,9 @@
 """
 A module containing Graphics representation of a :class:`~GUIWINDOW.node_socket.Socket`
 """
-from qtpy.QtWidgets import QGraphicsItem
-from qtpy.QtGui import QColor, QBrush, QPen
-from qtpy.QtCore import Qt, QRectF
+from PyQt5.QtWidgets import QGraphicsItem
+from PyQt5.QtGui import QColor, QBrush, QPen
+from PyQt5.QtCore import Qt, QRectF
 
 SOCKET_COLORS = [
     QColor("#FFFF7700"),

@@ -2,7 +2,7 @@
 
 from collections import OrderedDict
 from GUIWINDOW.node_serializable import Serializable
-from qtpy.QtWidgets import QWidget, QLabel, QVBoxLayout, QTextEdit
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QTextEdit
 
 
 class QDMNodeContentWidget(QWidget, Serializable):

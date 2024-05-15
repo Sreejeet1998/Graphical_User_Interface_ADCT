@@ -4,7 +4,7 @@ A module containing the Edge Snapping functions which are used in :class:`~GUIWI
 """
 
 
-from qtpy.QtCore import QPointF, QRectF
+from PyQt5.QtCore import QPointF, QRectF
 from GUIWINDOW.node_graphics_socket import QDMGraphicsSocket
 
 

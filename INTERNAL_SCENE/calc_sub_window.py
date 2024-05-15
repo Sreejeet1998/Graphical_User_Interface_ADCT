@@ -3,9 +3,9 @@ from tkinter import filedialog
 
 from PyQt5.QtWidgets import QLabel
 #from PyQt5.QtWidgets.QMainWindow import statusBar
-from qtpy.QtGui import QIcon, QPixmap
-from qtpy.QtCore import QDataStream, QIODevice, Qt
-from qtpy.QtWidgets import QAction, QGraphicsProxyWidget, QMenu
+from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtCore import QDataStream, QIODevice, Qt
+from PyQt5.QtWidgets import QAction, QGraphicsProxyWidget, QMenu
 
 import GUIWINDOW.node_editor_window
 from INTERNAL_SCENE.calc_conf import CALC_NODES, get_class_from_opcode, LISTBOX_MIMETYPE
