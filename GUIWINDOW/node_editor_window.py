@@ -152,8 +152,13 @@ class NodeEditorWindow(QMainWindow):
             return False
 
         return True
-
-
+    def notSaved(self) -> bool:
+        if not self.isModified():
+            return True
+        rs = QMessageBox()
+        rs.setIcon(rs.Information)
+        rs.setText("Save needed before compilation")
+        rs.exec_()
     def onScenePosChanged(self, x:int, y:int):
         """Handle event when cursor position changed on the `Scene`
 
@@ -205,7 +210,7 @@ class NodeEditorWindow(QMainWindow):
         """Handle File Save As operation"""
         current_nodeeditor = self.getCurrentNodeEditorWidget()
         if current_nodeeditor is not None:
-            fname, filter = QFileDialog.getSaveFileName(self, 'Save graph to file', self.getFileDialogDirectory(), self.getFileDialogFilter())
+            fname, filter = QFileDialog.getSaveFileName(self, 'Save graph to file', "","All Files (*)"+ ";;" +"JSON Files (*.json)" )
             if fname == '': return False
 
             self.onBeforeSaveAs(current_nodeeditor, fname)
@@ -219,19 +224,20 @@ class NodeEditorWindow(QMainWindow):
 
     def onFileCompileAs(self):
         """Handle File Save As operation"""
-        current_nodeeditor = self.getCurrentNodeEditorWidget()
-        if current_nodeeditor is not None:
-            fname, filter = QFileDialog.getSaveFileName(self, 'Save graph to file', self.getFileDialogDirectory(), self.getFileDialogFilter())
-            if fname == '': return False
+        if self.notSaved():
+            current_nodeeditor = self.getCurrentNodeEditorWidget()
+            if current_nodeeditor is not None:
+                fname, filter = QFileDialog.getSaveFileName(self, 'Save graph to file', "","JSON Files (*.json)"+ ";;" + "All Files (*)")
+                if fname == '': return False
 
-            self.onBeforeSaveAs(current_nodeeditor, fname)
-            current_nodeeditor.fileCompile(fname)
-            self.statusBar().showMessage("Successfully Compiled as %s" % current_nodeeditor.filename, 5000)
+                self.onBeforeSaveAs(current_nodeeditor, fname)
+                current_nodeeditor.fileCompile(fname)
+                self.statusBar().showMessage("Successfully Compiled as %s" % current_nodeeditor.filename, 5000)
 
-            # support for MDI app
-            if hasattr(current_nodeeditor, "setTitle"): current_nodeeditor.setTitle()
-            else: self.setTitle()
-            return True
+                # support for MDI app
+                # if hasattr(current_nodeeditor, "setTitle"): current_nodeeditor.setTitle()
+                # else: self.setTitle()
+                return True
     def onBeforeSaveAs(self, current_nodeeditor: 'NodeEditorWidget', filename: str):
         """
         Event triggered after choosing filename and before actual fileSave(). We are passing current_nodeeditor because
@@ -267,12 +273,14 @@ class NodeEditorWindow(QMainWindow):
             data = self.getCurrentNodeEditorWidget().scene.clipboard.serializeSelected(delete=False)
             str_data = json.dumps(data, indent=4)
             QApplication.instance().clipboard().setText(str_data)
+            print(str_data)
 
     def onEditPaste(self):
         """Handle Edit Paste from clipboard operation"""
+        print("yes this one haha")
         if self.getCurrentNodeEditorWidget():
             raw_data = QApplication.instance().clipboard().text()
-
+            #print(raw_data)
             try:
                 data = json.loads(raw_data)
             except ValueError as e:
@@ -283,7 +291,7 @@ class NodeEditorWindow(QMainWindow):
             if 'nodes' not in data:
                 print("JSON does not contain any nodes!")
                 return
-
+            print(data)
             return self.getCurrentNodeEditorWidget().scene.clipboard.deserializeFromClipboard(data)
 
     def readSettings(self):

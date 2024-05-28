@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-
+import re
 import INTERNAL_SCENE.calc_window
 import GUIWINDOW.node_scene
 from INTERNAL_SCENE.calc_conf import register_node, OP_NODE_OUTPUT, OP_NODE_INPUT, OP_NODE_DELETE, OP_NODE_LOOKUP, \
@@ -83,17 +83,9 @@ class CalcNode_UseMap(CalcNode):
 class calcInputContent(QDMNodeContentWidget):
     def initUI(self):
         self.edit = QLineEdit("",self)
-        #self.edit = QComboBox()
-        # self.Layout = QVBoxLayout()
-        # self.Layout.addWidget(self.edit)
-        # self.container = QWidget()
-        # self.container.setLayout(self.Layout)
-        #self.setCentralWidget(self.container)
-        #self.s
         self.edit.setAlignment(Qt.AlignRight)
         self.edit.setObjectName(self.node.content_label_objname)
         self.Nd_number = 6
-        #field_name = self.edit
 
     def serialize(self):
         global n_list
@@ -106,8 +98,14 @@ class calcInputContent(QDMNodeContentWidget):
 
     def deserialize(self, data, hashmap={}):
         res = super().deserialize(data, hashmap)
+        print("Yes DEserialize - ",res)
         try:
-            value = data['value']
+            pattern = r'\w\S*@*.\w'
+            value = re.findall(pattern, data)
+            print("Value =", value)
+            value = value[-1]
+            #value = data.split()
+            print("Value =",value)
             self.edit.setText(value)
             global field_name
             field_name = self.edit.setText(value)
