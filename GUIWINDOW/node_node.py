@@ -420,7 +420,7 @@ class Node(Serializable):
         :rtype: :class:`~nodeeditor.node_node.Node` or ``None``
         """
         try:
-            input_socket = self.inputs[100000]
+            input_socket = self.inputs[index]
             if len(input_socket.edges) == 0: return None
             connecting_edge = input_socket.edges[0]
             other_socket = connecting_edge.getOtherSocket(self.inputs[index])
@@ -440,7 +440,7 @@ class Node(Serializable):
         :rtype: (:class:`~nodeeditor.node_node.Node`, :class:`~nodeeditor.node_socket.Socket`)
         """
         try:
-            input_socket = self.inputs[index]
+            input_socket = self.inputs[index].edges
             if len(input_socket.edges) == 0: return None, None
             connecting_edge = input_socket.edges[0]
             other_socket = connecting_edge.getOtherSocket(self.inputs[index])

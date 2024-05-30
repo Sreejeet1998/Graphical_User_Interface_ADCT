@@ -323,12 +323,13 @@ class Scene(Serializable):
         from INTERNAL_SCENE.nodes.output import n_list
         from INTERNAL_SCENE.calc_sub_window import opcode
         from INTERNAL_SCENE.calc_window import filepath,outlist
-        list_name = ["dc.contributor.author","dc.contributor.editor","dc.contributor.illustrator","dc.contributor.advisor","dc.creator.researcher","dc.contributor.other@projectDirector","dc.contributor.other@choreographer","dc.contributor.other@videographer","dc.contributor.other@lyricist","dc.contributor.other@foreword"]
         nodes, edges = [], []
         for node in self.nodes: nodes.append(node.serialize())
         for edge in self.edges: edges.append(edge.serialize())
+        act = {"action":[]}
         count = 0
         n_list.pop(0)
+        p_list = n_list
         #print("yeah",outlist)
         if len(edges) > 1:
             for i in range(len(opcode)):
@@ -341,7 +342,8 @@ class Scene(Serializable):
                     count = count+1
                     #hold = outlist[i]
                     #f_name = {outlist[i]:{}}
-                    j = n_list.pop(0)
+                    act = {"action":[]}
+                    j = p_list.pop(0)
                     hold = j
                     f_name = {j:{}}
                     fields["Fields"].update(f_name)
@@ -350,28 +352,33 @@ class Scene(Serializable):
                 elif opcode[i] == 2:
                     pass
                 elif opcode[i] == 3:
-                    action_lu = {"action":["lookUp"]}
-                    f_name[hold].update(action_lu)
+                    act["action"].append("lookUp")
+                    #action_lu = {"action":["lookUp"]}
+                    f_name[hold].update(act)
                     #fields = '{}{}'.format(fields, INTERNAL_SCENE.nodes.output.CalcNode_LookUp.action_lu)
                     print(fields)
                 elif opcode[i] == 4:
-                    action_mf = {"action": ["moveField"]}
-                    f_name[hold].update(action_mf)
+                    act["action"].append("moveField")
+                    #action_mf = {"action": ["moveField"]}
+                    f_name[hold].update(act)
                     #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_MoveField.action_mf)
                     print(fields)
                 elif opcode[i] == 5:
-                    action_cd = {"action": ["copyData"]}
-                    f_name[hold].update(action_cd)
+                    act["action"].append("copyData")
+                    #action_cd = {"action": ["copyData"]}
+                    f_name[hold].update(act)
                     #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_CopyData.action_cd)
                     print(fields)
                 elif opcode[i] == 6:
-                    action_um = {"action": ["useMap"]}
-                    f_name[hold].update(action_um)
+                    act["action"].append("useMap")
+                    #action_um = {"action": ["useMap"]}
+                    f_name[hold].update(act)
                     #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_UseMap.action_um)
                     print(fields)
                 elif opcode[i] == 7:
-                    action_del = {"action": ["deleteField"]}
-                    f_name[hold].update(action_del)
+                    act["action"].append("deleteField")
+                    #action_del = {"action": ["deleteField"]}
+                    f_name[hold].update(act)
                     #fields = '{}{}'.format(fields, INTERNAL_SCENE.nodes.output.CalcNode_delete.action_del)
                     print(fields)
 
