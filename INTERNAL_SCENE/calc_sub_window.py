@@ -107,6 +107,7 @@ class CalculatorSubWindow(NodeEditorWidget):
             global num, opcode
             num.append(Id)
             opcode.append(op_code)
+
             # for i in range(len(opcode)):
             #     global top
             #     if opcode[i] == 1:

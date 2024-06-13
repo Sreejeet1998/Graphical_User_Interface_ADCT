@@ -326,6 +326,8 @@ class Scene(Serializable):
         nodes, edges = [], []
         for node in self.nodes: nodes.append(node.serialize())
         for edge in self.edges: edges.append(edge.serialize())
+        global fields
+        fields = {"Fields": {}}
         act = {"action":[]}
         count = 0
         n_list.pop(0)
@@ -333,7 +335,7 @@ class Scene(Serializable):
         #print("yeah",outlist)
         if len(edges) > 1:
             for i in range(len(opcode)):
-                global fields
+                # global fields
                 print("it is fiilepath:",filepath)
                 #outlist = json.dumps(outlist)
                 print("Outlist",outlist)
