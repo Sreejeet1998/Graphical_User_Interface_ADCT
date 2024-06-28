@@ -163,21 +163,11 @@ class CalculatorSubWindow(NodeEditorWidget):
         else:
             # print(" ... drop ignored, not requested format '%s'" % LISTBOX_MIMETYPE)
             event.ignore()
-
+    def filechoose(self):
+        fname, filter = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self, 'Open graph from file', self.getFileDialogDirectory(), self.getFileDialogFilter())
+        print(fname, filter)
     def ComboBox(self):
-        print("enter yes!!")
-        # label = QLineEdit()
-        # cb = QComboBox()
-        # cb.setGeometry(200,150,200,50)
-        # edit = cb.setLineEdit(label)
-        # cb.addItem(edit)
-        # cb.addItem('Two')
-        # cb.addItem('Three')
-        # cb.showPopup()
-        #
-        # layout = QVBoxLayout()
-        # layout.addWidget(cb)
-
+        global lb3
         self.window = PyQt5.QtWidgets.QMainWindow()
         self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
         self.window.setWindowTitle("LookUp AD")
@@ -187,15 +177,24 @@ class CalculatorSubWindow(NodeEditorWidget):
         central_widget = QWidget()
         self.window.setCentralWidget(central_widget)
         lb1 = QLineEdit("Delimeter...")
+        lb1.setFrame(False)
         lb2 = QPushButton('Chose filename')
-        lb3 = QLabel("Name")
+        lb3 = QLabel("Filename :")
 
-        g_layout = PyQt5.QtWidgets.QGridLayout()
-        g_layout.addWidget(lb1,0,0)
-        g_layout.addWidget(lb2, 1, 0)
-        g_layout.addWidget(lb3, 1, 1)
+        g_layout = PyQt5.QtWidgets.QVBoxLayout()
+        g_layout.addWidget(lb1)
+        g_layout.addWidget(lb2)
+        g_layout.addWidget(lb3)
         central_widget.setLayout(g_layout)
+        #lb2.clicked.connect(self.filechoose)
+        lb2.clicked.connect(self.clicker)
         self.window.show()
+    def clicker(self):
+        global lb3
+        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File")
+        if fname:
+            last_name = fname[0].split('/')[-1]
+            lb3.setText(last_name)
 
 
     def contextMenuEvent(self, event):
