@@ -1,14 +1,12 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 import re
-import INTERNAL_SCENE.calc_window
-import GUIWINDOW.node_scene
+
+from GUIWINDOW.node_node import Node
 from INTERNAL_SCENE.calc_conf import register_node, OP_NODE_OUTPUT, OP_NODE_INPUT, OP_NODE_DELETE, OP_NODE_LOOKUP, \
     OP_NODE_MOVEFIELD, OP_NODE_COPYDATA, OP_NODE_USEMAP
-from INTERNAL_SCENE.calc_node_base import CalcNode, CalcGraphicsNode
-#from INTERNAL_SCENE.calc_window import CalculatorWindow
+from INTERNAL_SCENE.calc_node_base import CalcNode, CalcGraphicsNode, CalcContent
 from GUIWINDOW.node_content_widget import QDMNodeContentWidget
-from GUIWINDOW.node_edge import Edge
 from GUIWINDOW.utils import dumpException
 n_list = []
 #res = ''
@@ -27,6 +25,20 @@ class CalcNode_delete(CalcNode):
 
 
 
+
+# class CalcNode(Node):
+#     #edit = QLineEdit("")
+#     icon = ""
+#     op_code = 0
+#     op_title = "Undefined"
+#     content_label = ""
+#     content_label_objname = "calc_node_bg"
+#
+#     GraphicsNode_class = CalcGraphicsNode
+#     NodeContent_class = CalcContent
+#
+#     def __init__(self, scene, inputs=[2], outputs=[1]):
+#         super().__init__(scene, self.__class__.op_title, inputs, outputs)
 @register_node(OP_NODE_LOOKUP)
 class CalcNode_LookUp(CalcNode):
     op_code = OP_NODE_LOOKUP
@@ -34,10 +46,15 @@ class CalcNode_LookUp(CalcNode):
     content_label_objname = "calc_node_lookup"
     Nd_number = 2
     action_lu = '"action": ["lookUp"]},'
+    #UIComponents()
 
     def __init__(self, scene):
         super().__init__(scene, inputs=[1], outputs=[2])
-
+        # self.Action_Descriptor = QMenu(self)
+        # file_Chooser = self.Action_Descriptor.addAction("File Name")
+        # delimiter = self.Action_Descriptor.addAction("Delimiter")
+    # def contextMenuEvent(self,event):
+    #     self.Action_Descriptor.exec_(self.mapToGlobal(event.pos()))
 @register_node(OP_NODE_MOVEFIELD)
 class CalcNode_MoveField(CalcNode):
     op_code = OP_NODE_MOVEFIELD
@@ -220,3 +237,4 @@ class CalcNode_Output(CalcNode):
         self.evalChildren()
 
         return val
+

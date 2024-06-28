@@ -50,7 +50,7 @@ Edge.registerEdgeValidator(edge_cannot_connect_input_and_output_of_same_node)
 DEBUG = False
 filepath= ''
 outlist=[]
-class CalculatorWindow(NodeEditorWindow):
+class ADCTWindow(NodeEditorWindow):
     outlist = []
     def initUI(self):
         self.name_company = 'NDLI'

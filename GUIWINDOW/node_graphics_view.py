@@ -378,13 +378,6 @@ class QDMGraphicsView(QGraphicsView):
 
     def rightMouseButtonRelease(self, event: QMouseEvent):
         """When Right mouse button was release"""
-
-        ## cannot be because with dragging RMB we spawn Create New Node Context Menu
-        ## However, you could use this if you want to cancel with RMB
-        # if self.mode == MODE_EDGE_DRAG:
-        #     self.dragging.edgeDragEnd(None)
-        #     return
-
         super().mouseReleaseEvent(event)
 
 

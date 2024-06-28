@@ -111,9 +111,7 @@ class NodeEditorWidget(QWidget):
         """Empty the scene (create new file)"""
         from INTERNAL_SCENE.calc_sub_window import opcode
         opcode.clear()
-        print("###########################Before =", fields)
         fields.clear()
-        print("###########################after =", fields)
         self.scene.clear()
         self.filename = None
         self.scene.history.clear()

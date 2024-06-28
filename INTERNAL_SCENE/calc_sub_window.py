@@ -1,16 +1,17 @@
 import json
 from tkinter import filedialog
 
+import PyQt5
 from PyQt5.QtWidgets import QLabel
 #from PyQt5.QtWidgets.QMainWindow import statusBar
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QDataStream, QIODevice, Qt
-from PyQt5.QtWidgets import QAction, QGraphicsProxyWidget, QMenu
+from PyQt5.QtWidgets import QMessageBox, QAction,QDialog, QPushButton, QGraphicsProxyWidget, QMenu, QComboBox, QVBoxLayout, QWidget, QLineEdit
 
 import GUIWINDOW.node_editor_window
 from INTERNAL_SCENE.calc_conf import CALC_NODES, get_class_from_opcode, LISTBOX_MIMETYPE
 from INTERNAL_SCENE.calc_node_base import CalcNode
-from INTERNAL_SCENE.nodes.output import CalcNode_Input
+from INTERNAL_SCENE.nodes.output import CalcNode_Input, CalcNode_LookUp
 from GUIWINDOW.node_editor_widget import NodeEditorWidget
 from GUIWINDOW.node_edge import EDGE_TYPE_DIRECT, EDGE_TYPE_BEZIER, EDGE_TYPE_SQUARE
 from GUIWINDOW.node_graphics_view import MODE_EDGE_DRAG
@@ -22,6 +23,28 @@ DEBUG_CONTEXT = False
 num = []
 opcode = []
 top = '{"Fields":{'
+n = ""
+
+class ActionDescriptor(PyQt5.QtWidgets.QMainWindow):
+    def __init__(self,parent=None):
+        super().__init__(parent)
+        self.init_gui()
+        self.show()
+    def init_gui(self):
+        self.window = PyQt5.QtWidgets.QWidget()
+        self.layout = PyQt5.QtWidgets.QGridLayout()
+        self.setCentralWidget(self.window)
+        self.window.setLayout(self.layout)
+
+        self.ledit = QLineEdit()
+        self.file_c = QPushButton()
+        self.file_r = QLabel()
+
+        self.layout.addWidget(self.ledit, 0, 0)
+        self.layout.addWidget(self.file_c, 1, 0)
+        self.layout.addWidget(self.file_r, 1, 1)
+
+        self.window.show()
 
 class CalculatorSubWindow(NodeEditorWidget):
     def __init__(self):
@@ -94,7 +117,7 @@ class CalculatorSubWindow(NodeEditorWidget):
     def onDrop(self, event):
         if event.mimeData().hasFormat(LISTBOX_MIMETYPE):
             eventData = event.mimeData().data(LISTBOX_MIMETYPE)
-            #print("Event Data -", eventData)
+            print("Event Data -", eventData)
             dataStream = QDataStream(eventData, QIODevice.ReadOnly)
             Id = id(dataStream)
             print(Id)
@@ -140,24 +163,64 @@ class CalculatorSubWindow(NodeEditorWidget):
         else:
             # print(" ... drop ignored, not requested format '%s'" % LISTBOX_MIMETYPE)
             event.ignore()
+
+    def ComboBox(self):
+        print("enter yes!!")
+        # label = QLineEdit()
+        # cb = QComboBox()
+        # cb.setGeometry(200,150,200,50)
+        # edit = cb.setLineEdit(label)
+        # cb.addItem(edit)
+        # cb.addItem('Two')
+        # cb.addItem('Three')
+        # cb.showPopup()
+        #
+        # layout = QVBoxLayout()
+        # layout.addWidget(cb)
+
+        self.window = PyQt5.QtWidgets.QMainWindow()
+        self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
+        self.window.setWindowTitle("LookUp AD")
+
+        self.window.setGeometry(200,200,400,100)
+
+        central_widget = QWidget()
+        self.window.setCentralWidget(central_widget)
+        lb1 = QLineEdit("Delimeter...")
+        lb2 = QPushButton('Chose filename')
+        lb3 = QLabel("Name")
+
+        g_layout = PyQt5.QtWidgets.QGridLayout()
+        g_layout.addWidget(lb1,0,0)
+        g_layout.addWidget(lb2, 1, 0)
+        g_layout.addWidget(lb3, 1, 1)
+        central_widget.setLayout(g_layout)
+        self.window.show()
+
+
     def contextMenuEvent(self, event):
+        global n
         try:
             item = self.scene.getItemAt(event.pos())
-           # title = item.title
-            if DEBUG_CONTEXT: print(item)
 
+            #title = item.title
+            if DEBUG_CONTEXT: print(item)
+            n = item.node
             if type(item) == QGraphicsProxyWidget:
                 item = item.widget()
 
-            if hasattr(item, 'socket'):
-                self.handleNodeContextMenu(event)
-            elif hasattr(item,'node') and hasattr(item,'title'):
+            if hasattr(n, 'action_lu'):
+                self.handleLookUpContextMenu(event)
+            elif hasattr(item, 'node') and hasattr(item, 'title'):
+                print(item)
                 self.handleInputFieldContextMenu(event)
             elif hasattr(item, 'edge'):
                 self.handleEdgeContextMenu(event)
+            elif hasattr(item, 'node') and hasattr(item, 'action_lu'):
+                self.handleLookUpContextMenu(event)
             #elif item is None:
-            else:
-                self.handleNewNodeContextMenu(event)
+            #else:
+                 #self.handleNewNodeContextMenu(event)
 
             return super().contextMenuEvent(event)
         except Exception as e: dumpException(e)
@@ -170,34 +233,36 @@ class CalculatorSubWindow(NodeEditorWidget):
         second = context_menu.addAction("Second")
         third = context_menu.addAction("Third")
         action = context_menu.exec_(self.mapToGlobal(event.pos()))
-    def handleNodeContextMenu(self, event):
+    def handleLookUpContextMenu(self, event):
         if DEBUG_CONTEXT: print("CONTEXT: NODE")
         context_menu = QMenu(self)
-        markDirtyAct = context_menu.addAction("Mark Dirty")
-        markDirtyDescendantsAct = context_menu.addAction("Mark Descendant Dirty")
-        markInvalidAct = context_menu.addAction("Mark Invalid")
-        unmarkInvalidAct = context_menu.addAction("Unmark Invalid")
-        evalAct = context_menu.addAction("Eval")
+        file_name = context_menu.addAction("Action Descriptor")
+        #file_name.setCheckable(True)
+        file_name.triggered.connect(self.ComboBox)
+        #delimiter = context_menu.addAction("Delimiter")
         action = context_menu.exec_(self.mapToGlobal(event.pos()))
 
+    def pressed(self):
+        print("clicked")
+
         selected = None
-        item = self.scene.getItemAt(event.pos())
-        if type(item) == QGraphicsProxyWidget:
-            item = item.widget()
-
-        if hasattr(item, 'node'):
-            selected = item.node
-        if hasattr(item, 'socket'):
-            selected = item.socket.node
-
-        if DEBUG_CONTEXT: print("got item:", selected)
-        if selected and action == markDirtyAct: selected.markDirty()
-        if selected and action == markDirtyDescendantsAct: selected.markDescendantsDirty()
-        if selected and action == markInvalidAct: selected.markInvalid()
-        if selected and action == unmarkInvalidAct: selected.markInvalid(False)
-        if selected and action == evalAct:
-            val = selected.eval()
-            if DEBUG_CONTEXT: print("EVALUATED:", val)
+        # item = self.scene.getItemAt(event.pos())
+        # if type(item) == QGraphicsProxyWidget:
+        #     item = item.widget()
+        #
+        # if hasattr(item, 'node'):
+        #     selected = item.node
+        # # if hasattr(item, 'socket'):
+        # #     selected = item.socket.node
+        #
+        # # if DEBUG_CONTEXT: print("got item:", selected)
+        # # if selected and action == markDirtyAct: selected.markDirty()
+        # # if selected and action == markDirtyDescendantsAct: selected.markDescendantsDirty()
+        # # if selected and action == markInvalidAct: selected.markInvalid()
+        # # if selected and action == unmarkInvalidAct: selected.markInvalid(False)
+        # # if selected and action == evalAct:
+        # #     val = selected.eval()
+        # #     if DEBUG_CONTEXT: print("EVALUATED:", val)
 
 
     def handleEdgeContextMenu(self, event):
