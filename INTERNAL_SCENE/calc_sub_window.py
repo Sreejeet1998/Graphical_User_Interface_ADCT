@@ -24,6 +24,8 @@ num = []
 opcode = []
 top = '{"Fields":{'
 n = ""
+last_name = ""
+lb2 = ""
 
 class ActionDescriptor(PyQt5.QtWidgets.QMainWindow):
     def __init__(self,parent=None):
@@ -167,38 +169,42 @@ class CalculatorSubWindow(NodeEditorWidget):
         fname, filter = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self, 'Open graph from file', self.getFileDialogDirectory(), self.getFileDialogFilter())
         print(fname, filter)
     def ComboBox(self):
-        global lb3
+        global lb5,lb2
         self.window = PyQt5.QtWidgets.QMainWindow()
         self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
-        self.window.setWindowTitle("LookUp AD")
+        self.window.setWindowTitle("Action Descriptor")
 
         self.window.setGeometry(200,200,400,100)
 
         central_widget = QWidget()
         self.window.setCentralWidget(central_widget)
-        lb1 = QLineEdit("Delimeter...")
-        lb1.setFrame(False)
-        lb2 = QPushButton('Chose filename')
-        lb3 = QLabel("Filename :")
+        lb1 = QLabel("delimiter:")
+        lb2 = QLineEdit("")
+        lb2.setFrame(False)
+        lb3 = QPushButton('Chose filename')
+        lb4 = QLabel("inputFile:-")
+        lb5 = QLabel("")
 
-        g_layout = PyQt5.QtWidgets.QVBoxLayout()
-        g_layout.addWidget(lb1)
-        g_layout.addWidget(lb2)
-        g_layout.addWidget(lb3)
+        g_layout = PyQt5.QtWidgets.QGridLayout()
+        g_layout.addWidget(lb1,0,0)
+        g_layout.addWidget(lb2,0,1)
+        g_layout.addWidget(lb3,1,1)
+        g_layout.addWidget(lb4, 2, 0)
+        g_layout.addWidget(lb5, 2, 1)
         central_widget.setLayout(g_layout)
         #lb2.clicked.connect(self.filechoose)
-        lb2.clicked.connect(self.clicker)
+        lb3.clicked.connect(self.clicker)
         self.window.show()
     def clicker(self):
-        global lb3
-        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File")
+        global lb5,last_name
+        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
         if fname:
             last_name = fname[0].split('/')[-1]
-            lb3.setText(last_name)
+            lb5.setText(last_name)
 
 
     def contextMenuEvent(self, event):
-        global n
+        global n,last_name
         try:
             item = self.scene.getItemAt(event.pos())
 
@@ -209,7 +215,17 @@ class CalculatorSubWindow(NodeEditorWidget):
                 item = item.widget()
 
             if hasattr(n, 'action_lu'):
-                self.handleLookUpContextMenu(event)
+                self.TwoADContextMenu(event)
+                lookup_filename = last_name
+                print(lookup_filename)
+            elif hasattr(n, 'action_mf'):
+                self.TwoADContextMenu(event)
+                movefield_filename = last_name
+                print(movefield_filename)
+            elif hasattr(n, 'action_um'):
+                self.TwoADContextMenu(event)
+                usemap_filename = last_name
+                print(usemap_filename)
             elif hasattr(item, 'node') and hasattr(item, 'title'):
                 print(item)
                 self.handleInputFieldContextMenu(event)
@@ -232,7 +248,7 @@ class CalculatorSubWindow(NodeEditorWidget):
         second = context_menu.addAction("Second")
         third = context_menu.addAction("Third")
         action = context_menu.exec_(self.mapToGlobal(event.pos()))
-    def handleLookUpContextMenu(self, event):
+    def TwoADContextMenu(self, event):
         if DEBUG_CONTEXT: print("CONTEXT: NODE")
         context_menu = QMenu(self)
         file_name = context_menu.addAction("Action Descriptor")

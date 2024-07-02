@@ -356,7 +356,14 @@ class Scene(Serializable):
                 elif opcode[i] == 3:
                     act["action"].append("lookUp")
                     #action_lu = {"action":["lookUp"]}
-                    f_name[hold].update(act)
+
+                    from INTERNAL_SCENE.calc_sub_window import last_name, lb2
+                    d = lb2.text()
+                    if not last_name:
+                        f_name[hold].update(act)
+                    else:
+                        act["lookUp"] = {"fileName":last_name,"delimiter":d}
+                        f_name[hold].update(act)
                     #fields = '{}{}'.format(fields, INTERNAL_SCENE.nodes.output.CalcNode_LookUp.action_lu)
                     print(fields)
                 elif opcode[i] == 4:
