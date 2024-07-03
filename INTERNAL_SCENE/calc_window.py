@@ -1,24 +1,7 @@
-from pathlib import Path
-
-from PyQt5.QtGui import QIcon, QKeySequence
-from PyQt5.QtWidgets import QMdiArea, QWidget, QDockWidget, QAction, QMessageBox, QFileDialog
-from PyQt5.QtCore import Qt, QSignalMapper
-
-from GUIWINDOW.node_editor_window import NodeEditorWindow
-from INTERNAL_SCENE.calc_sub_window import CalculatorSubWindow
-from INTERNAL_SCENE.calc_drag_listbox import QDMDragListbox
-from GUIWINDOW.utils import dumpException, pp
-from INTERNAL_SCENE.calc_conf import CALC_NODES
 import json
 
 
 # Enabling edge validators
-from GUIWINDOW.node_edge import Edge
-from GUIWINDOW.node_edge_validators import (
-    edge_validator_debug,
-    edge_cannot_connect_two_outputs_or_two_inputs,
-    edge_cannot_connect_input_and_output_of_same_node
-)
 from tkinter import filedialog
 
 from PyQt5.QtCore import Qt, QSignalMapper
@@ -90,7 +73,7 @@ class ADCTWindow(NodeEditorWindow):
 
         self.readSettings()
 
-        self.setWindowTitle("GUI Example")
+        self.setWindowTitle("GUI Demo")
 
     def closeEvent(self, event):
         self.mdiArea.closeAllSubWindows()
@@ -118,8 +101,7 @@ class ADCTWindow(NodeEditorWindow):
         self.actSeparator.setSeparator(True)
 
         self.actAbout = QAction("&About", self, statusTip="Show the application's About box", triggered=self.about)
-        self.actCompile = QAction('&Compile!', self, statusTip="Compiled Succesfully",
-                                  triggered=self.onFileCompileAs)
+        self.actCompile = QAction('&Compile!', self, statusTip="Compiled Succesfully", triggered=self.onFileCompileAs)
         self.actOSFile = QAction("Upload &Schema File...", self, statusTip ="Upload your schema file!", triggered=self.onOSFile)
 
     def getCurrentNodeEditorWidget(self):

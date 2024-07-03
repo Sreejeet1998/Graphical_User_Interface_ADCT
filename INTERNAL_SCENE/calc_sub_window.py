@@ -182,8 +182,9 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb2 = QLineEdit("")
         lb2.setFrame(False)
         lb3 = QPushButton('Chose filename')
-        lb4 = QLabel("inputFile:-")
+        lb4 = QLabel("inputFile:")
         lb5 = QLabel("")
+        lb6 = QPushButton('Done')
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
         g_layout.addWidget(lb1,0,0)
@@ -191,16 +192,20 @@ class CalculatorSubWindow(NodeEditorWidget):
         g_layout.addWidget(lb3,1,1)
         g_layout.addWidget(lb4, 2, 0)
         g_layout.addWidget(lb5, 2, 1)
+        g_layout.addWidget(lb6,3,1,1,1)
         central_widget.setLayout(g_layout)
         #lb2.clicked.connect(self.filechoose)
         lb3.clicked.connect(self.clicker)
+        #lb6.setDisabled(True)
+        lb6.clicked.connect(self.window.close)
         self.window.show()
     def clicker(self):
-        global lb5,last_name
+        global lb5,lb6,last_name
         fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
         if fname:
             last_name = fname[0].split('/')[-1]
             lb5.setText(last_name)
+            #lb6.setDisabled(False)
 
 
     def contextMenuEvent(self, event):
