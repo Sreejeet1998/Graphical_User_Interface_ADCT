@@ -5,14 +5,13 @@ A module containing ``NodeEditorWidget`` class
 import os
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QPen, QFont, QColor
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QApplication, QMessageBox, QLabel, QGraphicsItem, QTextEdit, QPushButton
+from PyQt5.QtWidgets import QWidget, QVBoxLayout,QLineEdit, QApplication, QMessageBox, QLabel, QGraphicsItem, QTextEdit, QPushButton
 
 from GUIWINDOW.node_scene import Scene, InvalidFile, fields
 from GUIWINDOW.node_node import Node
 from GUIWINDOW.node_edge import Edge, EDGE_TYPE_BEZIER
 from GUIWINDOW.node_graphics_view import QDMGraphicsView
 from GUIWINDOW.utils import dumpException
-
 
 class NodeEditorWidget(QWidget):
     Scene_class = Scene
@@ -109,7 +108,15 @@ class NodeEditorWidget(QWidget):
 
     def fileNew(self):
         """Empty the scene (create new file)"""
-        from INTERNAL_SCENE.calc_sub_window import opcode
+        from INTERNAL_SCENE.calc_sub_window import opcode, variableManager
+        print("on new d", variableManager.lb2)
+        variableManager.lb2 = ""
+        print("on new d", variableManager.lb2)
+       # print("on new lastname", variableManager.last_name)
+        variableManager.last_name_lu = ""
+        variableManager.last_name_mf = ""
+        variableManager.last_name_um = ""
+        #print("Nammmmmmm", variableManager.last_name)
         opcode.clear()
         print("clearing")
         fields.clear()

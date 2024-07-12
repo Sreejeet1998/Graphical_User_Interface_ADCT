@@ -99,9 +99,15 @@ class CalcNode_UseMap(CalcNode):
 #        super().__init__(scene, inputs=[], outputs=[2])
 class calcInputContent(QDMNodeContentWidget):
     def initUI(self):
-        self.edit = QLineEdit("",self)
-        self.edit.setAlignment(Qt.AlignRight)
-        self.edit.setObjectName(self.node.content_label_objname)
+        from INTERNAL_SCENE.calc_sub_window import variableManager
+        self.edit = QLineEdit(self)
+        completer = QCompleter(variableManager.outlist,self)
+        completer.setCaseSensitivity(True)
+        self.edit.setCompleter(completer)
+        self.layout = QGridLayout()
+        self.layout.addWidget(self.edit,0,0)
+        #self.edit.setAlignment(Qt.AlignRight)
+        #self.edit.setObjectName(self.node.content_label_objname)
         self.Nd_number = 6
 
     def serialize(self):

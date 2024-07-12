@@ -22,7 +22,7 @@ from INTERNAL_SCENE.nodes.output import calcInputContent
 from INTERNAL_SCENE.calc_conf import CALC_NODES
 DEBUG_REMOVE_WARNINGS = False
 fields = {"Fields": {}}
-
+d = ""
 class InvalidFile(Exception): pass
 
 
@@ -322,11 +322,11 @@ class Scene(Serializable):
     def dumpJson(self,filename:str):
         from INTERNAL_SCENE.nodes.output import n_list
         from INTERNAL_SCENE.calc_sub_window import opcode
-        from INTERNAL_SCENE.calc_window import filepath,outlist
+        from INTERNAL_SCENE.calc_window import filepath
         nodes, edges = [], []
         for node in self.nodes: nodes.append(node.serialize())
         for edge in self.edges: edges.append(edge.serialize())
-        global fields
+        global fields,d
         fields = {"Fields": {}}
         act = {"action":[]}
         count = 0
@@ -338,7 +338,7 @@ class Scene(Serializable):
                 # global fields
                 print("it is fiilepath:",filepath)
                 #outlist = json.dumps(outlist)
-                print("Outlist",outlist)
+                #print("Outlist",outlist)
                 #finame = outlist[i]
                 if opcode[i] == 1:
                     count = count+1
@@ -355,22 +355,25 @@ class Scene(Serializable):
                     pass
                 elif opcode[i] == 3:
                     act["action"].append("lookUp")
-                    #action_lu = {"action":["lookUp"]}
 
-                    from INTERNAL_SCENE.calc_sub_window import last_name, lb2
-                    d = lb2.text()
-                    if not last_name:
+                    from INTERNAL_SCENE.calc_sub_window import variableManager
+                    print("Lastname ======== ",variableManager.last_name_lu)
+                    print("lb2",variableManager.lb2)
+                    if variableManager.last_name_lu == "":
                         f_name[hold].update(act)
                     else:
-                        act["lookUp"] = {"fileName":last_name,"delimiter":d}
+                        act["lookUp"] = {"inputFile":variableManager.last_name_lu,"delimiter":variableManager.lb2.text()}
                         f_name[hold].update(act)
-                    #fields = '{}{}'.format(fields, INTERNAL_SCENE.nodes.output.CalcNode_LookUp.action_lu)
                     print(fields)
                 elif opcode[i] == 4:
                     act["action"].append("moveField")
-                    #action_mf = {"action": ["moveField"]}
-                    f_name[hold].update(act)
-                    #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_MoveField.action_mf)
+
+                    from INTERNAL_SCENE.calc_sub_window import variableManager
+                    if variableManager.last_name_mf == "":
+                        f_name[hold].update(act)
+                    else:
+                        act["moveField"] = {"inputFile":variableManager.last_name_lu,"delimiter":variableManager.lb2.text()}
+                        f_name[hold].update(act)
                     print(fields)
                 elif opcode[i] == 5:
                     act["action"].append("copyData")
@@ -380,9 +383,14 @@ class Scene(Serializable):
                     print(fields)
                 elif opcode[i] == 6:
                     act["action"].append("useMap")
-                    #action_um = {"action": ["useMap"]}
-                    f_name[hold].update(act)
-                    #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_UseMap.action_um)
+                    from INTERNAL_SCENE.calc_sub_window import variableManager
+
+                    if variableManager.last_name_um == "":
+                        f_name[hold].update(act)
+                    else:
+                        act["useMap"] = {"inputFile":variableManager.last_name_lu,"delimiter":variableManager.lb2.text()}
+                        f_name[hold].update(act)
+
                     print(fields)
                 elif opcode[i] == 7:
                     act["action"].append("deleteField")

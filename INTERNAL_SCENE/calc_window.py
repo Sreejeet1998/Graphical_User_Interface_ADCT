@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMdiArea, QWidget, QDockWidget, QAction, QMessageBox
 
 from INTERNAL_SCENE.calc_conf import CALC_NODES
 from INTERNAL_SCENE.calc_drag_listbox import QDMDragListbox
-from INTERNAL_SCENE.calc_sub_window import CalculatorSubWindow
+from INTERNAL_SCENE.calc_sub_window import CalculatorSubWindow, variableManager
 # Enabling edge validators
 from GUIWINDOW.node_edge import Edge
 from GUIWINDOW.node_edge_validators import (
@@ -32,7 +32,6 @@ Edge.registerEdgeValidator(edge_cannot_connect_input_and_output_of_same_node)
 
 DEBUG = False
 filepath= ''
-outlist=[]
 class ADCTWindow(NodeEditorWindow):
     outlist = []
     def initUI(self):
@@ -167,27 +166,11 @@ class ADCTWindow(NodeEditorWindow):
             data = json.load(json_file)
 
 
-        global outlist
-        outlist = approach(data)
+        variableManager.outlist = approach(data)
         print("YEs :)")
-        print(type(outlist))
+        print(variableManager.outlist)
 
-        return outlist
         self.statusBar().showMessage("File %s loaded" % filepath, 5000)
-        #print("Only keys =", output)
-
-        #fnames, filter = QFileDialog.getOpenFileNames(self, 'Select a file', self.getFileDialogDirectory(),
-        #                                               self.getFileDialogFilter())
-        #fnames = fnames[-1]
-        #print(fnames)
-        #path = Path(fnames)
-        #print(path)
-        #try:
-        #    with open(path, "r") as file:
-        #        content = path.read()
-        #        print(content)
-        #except Exception as e:
-        #    dumpException()
 
     #data = onOSFile()
     print("Data:",filepath)

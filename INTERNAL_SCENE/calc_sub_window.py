@@ -24,29 +24,34 @@ num = []
 opcode = []
 top = '{"Fields":{'
 n = ""
-last_name = ""
-lb2 = ""
+lb6 = ""
+class variableManager:
+    last_name_lu = ""
+    last_name_mf = ""
+    last_name_um = ""
+    lb2 = ""
+    outlist = []
+# class ActionDescriptor(PyQt5.QtWidgets.QDialog):
+#     def __init__(self,parent=None):
+#         super().__init__(parent)
+#         self.init_gui()
+#         self.show()
+#     def init_gui(self):
+#         self.window = PyQt5.QtWidgets.QWidget()
+#         self.layout = PyQt5.QtWidgets.QGridLayout()
+#         self.setCentralWidget(self.window)
+#         self.window.setLayout(self.layout)
+#
+#         self.ledit = QLineEdit()
+#         self.file_c = QPushButton()
+#         self.file_r = QLabel()
+#
+#         self.layout.addWidget(self.ledit, 0, 0)
+#         self.layout.addWidget(self.file_c, 1, 0)
+#         self.layout.addWidget(self.file_r, 1, 1)
 
-class ActionDescriptor(PyQt5.QtWidgets.QMainWindow):
-    def __init__(self,parent=None):
-        super().__init__(parent)
-        self.init_gui()
-        self.show()
-    def init_gui(self):
-        self.window = PyQt5.QtWidgets.QWidget()
-        self.layout = PyQt5.QtWidgets.QGridLayout()
-        self.setCentralWidget(self.window)
-        self.window.setLayout(self.layout)
 
-        self.ledit = QLineEdit()
-        self.file_c = QPushButton()
-        self.file_r = QLabel()
-
-        self.layout.addWidget(self.ledit, 0, 0)
-        self.layout.addWidget(self.file_c, 1, 0)
-        self.layout.addWidget(self.file_r, 1, 1)
-
-        self.window.show()
+        #self.window.show()
 
 class CalculatorSubWindow(NodeEditorWidget):
     def __init__(self):
@@ -61,7 +66,6 @@ class CalculatorSubWindow(NodeEditorWidget):
         self.scene.addDragEnterListener(self.onDragEnter)
         self.scene.addDropListener(self.onDrop)
         self.scene.setNodeClassSelector(self.getNodeClassFromData)
-
         self._close_event_listeners = []
 
     def getNodeClassFromData(self, data):
@@ -169,7 +173,7 @@ class CalculatorSubWindow(NodeEditorWidget):
         fname, filter = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self, 'Open graph from file', self.getFileDialogDirectory(), self.getFileDialogFilter())
         print(fname, filter)
     def ComboBox(self):
-        global lb5,lb2
+        global lb5,lb6
         self.window = PyQt5.QtWidgets.QMainWindow()
         self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
         self.window.setWindowTitle("Action Descriptor")
@@ -179,16 +183,16 @@ class CalculatorSubWindow(NodeEditorWidget):
         central_widget = QWidget()
         self.window.setCentralWidget(central_widget)
         lb1 = QLabel("delimiter:")
-        lb2 = QLineEdit("")
-        lb2.setFrame(False)
+        variableManager.lb2 = QLineEdit("")
+        variableManager.lb2.setFrame(False)
         lb3 = QPushButton('Chose filename')
-        lb4 = QLabel("inputFile:")
+        lb4 = QLabel("inputFile:-")
         lb5 = QLabel("")
         lb6 = QPushButton('Done')
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
         g_layout.addWidget(lb1,0,0)
-        g_layout.addWidget(lb2,0,1)
+        g_layout.addWidget(variableManager.lb2,0,1)
         g_layout.addWidget(lb3,1,1)
         g_layout.addWidget(lb4, 2, 0)
         g_layout.addWidget(lb5, 2, 1)
@@ -196,20 +200,23 @@ class CalculatorSubWindow(NodeEditorWidget):
         central_widget.setLayout(g_layout)
         #lb2.clicked.connect(self.filechoose)
         lb3.clicked.connect(self.clicker)
-        #lb6.setDisabled(True)
+        lb6.setDisabled(True)
         lb6.clicked.connect(self.window.close)
+        self.window.setWindowModality(Qt.ApplicationModal)
         self.window.show()
     def clicker(self):
-        global lb5,lb6,last_name
+        global lb6
+        lb6.setDisabled(False)
         fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
         if fname:
-            last_name = fname[0].split('/')[-1]
-            lb5.setText(last_name)
-            #lb6.setDisabled(False)
+            variableManager.last_name_lu = fname[0].split('/')[-1]
+            variableManager.last_name_mf = fname[0].split('/')[-1]
+            variableManager.last_name_um = fname[0].split('/')[-1]
+            #lb5.setText(variableManager.last_name)
 
 
     def contextMenuEvent(self, event):
-        global n,last_name
+        global n, lb5
         try:
             item = self.scene.getItemAt(event.pos())
 
@@ -221,15 +228,18 @@ class CalculatorSubWindow(NodeEditorWidget):
 
             if hasattr(n, 'action_lu'):
                 self.TwoADContextMenu(event)
-                lookup_filename = last_name
+                lb5.setText(variableManager.last_name_lu)
+                lookup_filename = variableManager.last_name_lu
                 print(lookup_filename)
             elif hasattr(n, 'action_mf'):
                 self.TwoADContextMenu(event)
-                movefield_filename = last_name
+                lb5.setText(variableManager.last_name_mf)
+                movefield_filename = variableManager.last_name_mf
                 print(movefield_filename)
             elif hasattr(n, 'action_um'):
                 self.TwoADContextMenu(event)
-                usemap_filename = last_name
+                lb5.setText(variableManager.last_name_um)
+                usemap_filename = variableManager.last_name_um
                 print(usemap_filename)
             elif hasattr(item, 'node') and hasattr(item, 'title'):
                 print(item)
