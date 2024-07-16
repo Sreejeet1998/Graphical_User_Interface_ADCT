@@ -372,7 +372,7 @@ class Scene(Serializable):
                     if variableManager.last_name_mf == "":
                         f_name[hold].update(act)
                     else:
-                        act["moveField"] = {"inputFile":variableManager.last_name_lu,"delimiter":variableManager.lb2.text()}
+                        act["moveField"] = {"inputFile":variableManager.last_name_mf,"delimiter":variableManager.lb2.text()}
                         f_name[hold].update(act)
                     print(fields)
                 elif opcode[i] == 5:
@@ -388,7 +388,7 @@ class Scene(Serializable):
                     if variableManager.last_name_um == "":
                         f_name[hold].update(act)
                     else:
-                        act["useMap"] = {"inputFile":variableManager.last_name_lu,"delimiter":variableManager.lb2.text()}
+                        act["useMap"] = {"inputFile":variableManager.last_name_um,"delimiter":variableManager.lb2.text()}
                         f_name[hold].update(act)
 
                     print(fields)

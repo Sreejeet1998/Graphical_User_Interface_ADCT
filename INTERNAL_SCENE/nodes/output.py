@@ -147,7 +147,7 @@ class CalcNode_Input(CalcNode):
     Nd_number = 6
 
     def __init__(self, scene):
-        super().__init__(scene, inputs=[], outputs=[3])
+        super().__init__(scene, inputs=[1], outputs=[3])
         self.eval()
 
     def initInnerClasses(self):

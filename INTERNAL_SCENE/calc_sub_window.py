@@ -2,9 +2,9 @@ import json
 from tkinter import filedialog
 
 import PyQt5
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel, QCompleter, QListWidget
 #from PyQt5.QtWidgets.QMainWindow import statusBar
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import QIcon, QPixmap, QStandardItem
 from PyQt5.QtCore import QDataStream, QIODevice, Qt
 from PyQt5.QtWidgets import QMessageBox, QAction,QDialog, QPushButton, QGraphicsProxyWidget, QMenu, QComboBox, QVBoxLayout, QWidget, QLineEdit
 
@@ -31,6 +31,8 @@ class variableManager:
     last_name_um = ""
     lb2 = ""
     outlist = []
+    selected_items = []
+    selected_items_list = ''
 # class ActionDescriptor(PyQt5.QtWidgets.QDialog):
 #     def __init__(self,parent=None):
 #         super().__init__(parent)
@@ -172,7 +174,7 @@ class CalculatorSubWindow(NodeEditorWidget):
     def filechoose(self):
         fname, filter = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self, 'Open graph from file', self.getFileDialogDirectory(), self.getFileDialogFilter())
         print(fname, filter)
-    def ComboBox(self):
+    def LuComboBox(self):
         global lb5,lb6
         self.window = PyQt5.QtWidgets.QMainWindow()
         self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
@@ -199,20 +201,147 @@ class CalculatorSubWindow(NodeEditorWidget):
         g_layout.addWidget(lb6,3,1,1,1)
         central_widget.setLayout(g_layout)
         #lb2.clicked.connect(self.filechoose)
-        lb3.clicked.connect(self.clicker)
+        lb3.clicked.connect(self.Luclicker)
         lb6.setDisabled(True)
         lb6.clicked.connect(self.window.close)
         self.window.setWindowModality(Qt.ApplicationModal)
         self.window.show()
-    def clicker(self):
+    def Luclicker(self):
         global lb6
         lb6.setDisabled(False)
         fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
         if fname:
             variableManager.last_name_lu = fname[0].split('/')[-1]
+            lb5.setText(variableManager.last_name_lu)
+
+    def MfComboBox(self):
+        global lb5,lb6
+        self.window = PyQt5.QtWidgets.QMainWindow()
+        self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
+        self.window.setWindowTitle("Action Descriptor")
+
+        self.window.setGeometry(200,200,400,100)
+
+        central_widget = QWidget()
+        self.window.setCentralWidget(central_widget)
+        lb1 = QLabel("delimiter:")
+        variableManager.lb2 = QLineEdit("")
+        variableManager.lb2.setFrame(False)
+        lb3 = QPushButton('Chose filename')
+        lb4 = QLabel("inputFile:-")
+        lb5 = QLabel("")
+        lb6 = QPushButton('Done')
+
+        g_layout = PyQt5.QtWidgets.QGridLayout()
+        g_layout.addWidget(lb1,0,0)
+        g_layout.addWidget(variableManager.lb2,0,1)
+        g_layout.addWidget(lb3,1,1)
+        g_layout.addWidget(lb4, 2, 0)
+        g_layout.addWidget(lb5, 2, 1)
+        g_layout.addWidget(lb6,3,1,1,1)
+        central_widget.setLayout(g_layout)
+        #lb2.clicked.connect(self.filechoose)
+        lb3.clicked.connect(self.mfclicker)
+        lb6.setDisabled(True)
+        lb6.clicked.connect(self.window.close)
+        self.window.setWindowModality(Qt.ApplicationModal)
+        self.window.show()
+    def mfclicker(self):
+        global lb6
+        lb6.setDisabled(False)
+        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
+        if fname:
             variableManager.last_name_mf = fname[0].split('/')[-1]
+            lb5.setText(variableManager.last_name_mf)
+
+    def UmComboBox(self):
+        global lb5,lb6
+        self.window = PyQt5.QtWidgets.QMainWindow()
+        self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
+        self.window.setWindowTitle("Action Descriptor")
+
+        self.window.setGeometry(200,200,400,100)
+
+        central_widget = QWidget()
+        self.window.setCentralWidget(central_widget)
+        lb1 = QLabel("delimiter:")
+        variableManager.lb2 = QLineEdit("")
+        variableManager.lb2.setFrame(False)
+        lb3 = QPushButton('Chose filename')
+        lb4 = QLabel("inputFile:-")
+        lb5 = QLabel("")
+        lb6 = QPushButton('Done')
+
+        g_layout = PyQt5.QtWidgets.QGridLayout()
+        g_layout.addWidget(lb1,0,0)
+        g_layout.addWidget(variableManager.lb2,0,1)
+        g_layout.addWidget(lb3,1,1)
+        g_layout.addWidget(lb4, 2, 0)
+        g_layout.addWidget(lb5, 2, 1)
+        g_layout.addWidget(lb6,3,1,1,1)
+        central_widget.setLayout(g_layout)
+        #lb2.clicked.connect(self.filechoose)
+        lb3.clicked.connect(self.umclicker)
+        lb6.setDisabled(True)
+        lb6.clicked.connect(self.window.close)
+        self.window.setWindowModality(Qt.ApplicationModal)
+        self.window.show()
+    def umclicker(self):
+        global lb6
+        lb6.setDisabled(False)
+        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
+        if fname:
             variableManager.last_name_um = fname[0].split('/')[-1]
-            #lb5.setText(variableManager.last_name)
+            lb5.setText(variableManager.last_name_um)
+
+    def CdComboBox(self):
+        self.window = PyQt5.QtWidgets.QMainWindow()
+        self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
+        self.window.setWindowTitle("Action Descriptor")
+
+        self.window.setGeometry(200,200,400,100)
+
+        central_widget = QWidget()
+        self.window.setCentralWidget(central_widget)
+        items = variableManager.outlist
+        lb1 = QLabel("targetField:")
+        completer = QCompleter(variableManager.outlist,self)
+        completer.setCaseSensitivity(True)
+        variableManager.lb2 = QLineEdit("")
+        variableManager.lb2.setFrame(True)
+        variableManager.lb2.setCompleter(completer)
+        variableManager.selected_items_list = QLabel()
+        lb3 = QLabel("targetValue:-")
+        lb4 = QLineEdit("")
+        lb5 = QLabel('delimiter:-')
+        lb6 = QLineEdit("")
+        lb6.setFrame(False)
+        lb7 = QPushButton("Done")
+
+        g_layout = PyQt5.QtWidgets.QGridLayout()
+        g_layout.addWidget(lb1,0,0)
+        g_layout.addWidget(variableManager.lb2,0,1)
+        g_layout.addWidget(variableManager.selected_items_list,1,1,1,1)
+        g_layout.addWidget(lb3,2,0)
+        g_layout.addWidget(lb4, 2, 1)
+        g_layout.addWidget(lb5, 3, 0)
+        g_layout.addWidget(lb6,3,1)
+        g_layout.addWidget(lb7,4,1,1,1)
+        central_widget.setLayout(g_layout)
+        #lb2.clicked.connect(self.filechoose)
+        lb7.clicked.connect(self.window.close)
+        self.window.setWindowModality(Qt.ApplicationModal)
+        self.window.show()
+        completer.activated.connect(self.on_completer_activated)
+
+    def on_completer_activated(self,text):
+        ln = len(variableManager.selected_items)
+        variableManager.selected_items.append(text)
+        variableManager.selected_items_list.setText(text)
+        variableManager.lb2.clear()
+        self.completer = QCompleter(variableManager.outlist,self)
+        variableManager.lb2.setCompleter(self.completer)
+
 
 
     def contextMenuEvent(self, event):
@@ -227,20 +356,21 @@ class CalculatorSubWindow(NodeEditorWidget):
                 item = item.widget()
 
             if hasattr(n, 'action_lu'):
-                self.TwoADContextMenu(event)
-                lb5.setText(variableManager.last_name_lu)
+                self.LuADContextMenu(event)
                 lookup_filename = variableManager.last_name_lu
                 print(lookup_filename)
             elif hasattr(n, 'action_mf'):
-                self.TwoADContextMenu(event)
-                lb5.setText(variableManager.last_name_mf)
+                self.MfADContextMenu(event)
                 movefield_filename = variableManager.last_name_mf
                 print(movefield_filename)
             elif hasattr(n, 'action_um'):
-                self.TwoADContextMenu(event)
-                lb5.setText(variableManager.last_name_um)
+                self.UmADContextMenu(event)
                 usemap_filename = variableManager.last_name_um
                 print(usemap_filename)
+            elif hasattr(n, 'action_cd'):
+                self.CdADContextMenu(event)
+                # copydata_filename = variableManager.last_name_cd
+                # print(copydata_filename)
             elif hasattr(item, 'node') and hasattr(item, 'title'):
                 print(item)
                 self.handleInputFieldContextMenu(event)
@@ -263,15 +393,41 @@ class CalculatorSubWindow(NodeEditorWidget):
         second = context_menu.addAction("Second")
         third = context_menu.addAction("Third")
         action = context_menu.exec_(self.mapToGlobal(event.pos()))
-    def TwoADContextMenu(self, event):
+    def LuADContextMenu(self, event):
         if DEBUG_CONTEXT: print("CONTEXT: NODE")
         context_menu = QMenu(self)
         file_name = context_menu.addAction("Action Descriptor")
         #file_name.setCheckable(True)
-        file_name.triggered.connect(self.ComboBox)
+        file_name.triggered.connect(self.LuComboBox)
         #delimiter = context_menu.addAction("Delimiter")
         action = context_menu.exec_(self.mapToGlobal(event.pos()))
 
+    def MfADContextMenu(self, event):
+        if DEBUG_CONTEXT: print("CONTEXT: NODE")
+        context_menu = QMenu(self)
+        file_name = context_menu.addAction("Action Descriptor")
+        #file_name.setCheckable(True)
+        file_name.triggered.connect(self.MfComboBox)
+        #delimiter = context_menu.addAction("Delimiter")
+        action = context_menu.exec_(self.mapToGlobal(event.pos()))
+
+    def UmADContextMenu(self, event):
+        if DEBUG_CONTEXT: print("CONTEXT: NODE")
+        context_menu = QMenu(self)
+        file_name = context_menu.addAction("Action Descriptor")
+        #file_name.setCheckable(True)
+        file_name.triggered.connect(self.UmComboBox)
+        #delimiter = context_menu.addAction("Delimiter")
+        action = context_menu.exec_(self.mapToGlobal(event.pos()))
+
+    def CdADContextMenu(self, event):
+        if DEBUG_CONTEXT: print("CONTEXT: NODE")
+        context_menu = QMenu(self)
+        file_name = context_menu.addAction("Action Descriptor")
+        #file_name.setCheckable(True)
+        file_name.triggered.connect(self.CdComboBox)
+        #delimiter = context_menu.addAction("Delimiter")
+        action = context_menu.exec_(self.mapToGlobal(event.pos()))
     def pressed(self):
         print("clicked")
 
