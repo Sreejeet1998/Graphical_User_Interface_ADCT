@@ -26,13 +26,33 @@ top = '{"Fields":{'
 n = ""
 lb6 = ""
 class variableManager:
+    lb2 = ""
+
+    lulb2 = ""
+    lulb2_txt = ""
+    lulb4 = ""
+
+    mflb2 = ""
+    mflb2_txt = ""
+    mflb4 = ""
+
+    umlb2 = ""
+    umlb2_txt = ""
+    umlb4 = ""
+
+    cdlabel_txt = ""
+    cdtxt = ""
     last_name_lu = ""
     last_name_mf = ""
     last_name_um = ""
-    lb2 = ""
+    cdlb2 = ""
+    cdlb4 = ""
+    cdlb6 = ""
+    cdlb4_txt = ""
+    cdlb6_txt = ""
     outlist = []
-    selected_items = []
-    selected_items_list = ''
+    cdselected_items = []
+    cdselected_items_list = ''
 # class ActionDescriptor(PyQt5.QtWidgets.QDialog):
 #     def __init__(self,parent=None):
 #         super().__init__(parent)
@@ -185,18 +205,18 @@ class CalculatorSubWindow(NodeEditorWidget):
         central_widget = QWidget()
         self.window.setCentralWidget(central_widget)
         lb1 = QLabel("delimiter:")
-        variableManager.lb2 = QLineEdit("")
-        variableManager.lb2.setFrame(False)
+        variableManager.lulb2 = QLineEdit("")
+        variableManager.lulb2.setFrame(False)
         lb3 = QPushButton('Chose filename')
-        lb4 = QLabel("inputFile:-")
+        variableManager.lulb4 = QLabel("inputFile:-")
         lb5 = QLabel("")
         lb6 = QPushButton('Done')
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
         g_layout.addWidget(lb1,0,0)
-        g_layout.addWidget(variableManager.lb2,0,1)
+        g_layout.addWidget(variableManager.lulb2,0,1)
         g_layout.addWidget(lb3,1,1)
-        g_layout.addWidget(lb4, 2, 0)
+        g_layout.addWidget(variableManager.lulb4, 2, 0)
         g_layout.addWidget(lb5, 2, 1)
         g_layout.addWidget(lb6,3,1,1,1)
         central_widget.setLayout(g_layout)
@@ -211,6 +231,7 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb6.setDisabled(False)
         fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
         if fname:
+            variableManager.lulb2_txt = variableManager.lulb2.text()
             variableManager.last_name_lu = fname[0].split('/')[-1]
             lb5.setText(variableManager.last_name_lu)
 
@@ -225,18 +246,18 @@ class CalculatorSubWindow(NodeEditorWidget):
         central_widget = QWidget()
         self.window.setCentralWidget(central_widget)
         lb1 = QLabel("delimiter:")
-        variableManager.lb2 = QLineEdit("")
-        variableManager.lb2.setFrame(False)
+        variableManager.mflb2 = QLineEdit("")
+        variableManager.mflb2.setFrame(False)
         lb3 = QPushButton('Chose filename')
-        lb4 = QLabel("inputFile:-")
+        variableManager.mflb4 = QLabel("inputFile:-")
         lb5 = QLabel("")
         lb6 = QPushButton('Done')
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
         g_layout.addWidget(lb1,0,0)
-        g_layout.addWidget(variableManager.lb2,0,1)
+        g_layout.addWidget(variableManager.mflb2,0,1)
         g_layout.addWidget(lb3,1,1)
-        g_layout.addWidget(lb4, 2, 0)
+        g_layout.addWidget(variableManager.mflb4, 2, 0)
         g_layout.addWidget(lb5, 2, 1)
         g_layout.addWidget(lb6,3,1,1,1)
         central_widget.setLayout(g_layout)
@@ -251,6 +272,7 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb6.setDisabled(False)
         fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
         if fname:
+            variableManager.mflb2_txt = variableManager.mflb2.text()
             variableManager.last_name_mf = fname[0].split('/')[-1]
             lb5.setText(variableManager.last_name_mf)
 
@@ -265,8 +287,8 @@ class CalculatorSubWindow(NodeEditorWidget):
         central_widget = QWidget()
         self.window.setCentralWidget(central_widget)
         lb1 = QLabel("delimiter:")
-        variableManager.lb2 = QLineEdit("")
-        variableManager.lb2.setFrame(False)
+        variableManager.umlb2 = QLineEdit("")
+        variableManager.umlb2.setFrame(False)
         lb3 = QPushButton('Chose filename')
         lb4 = QLabel("inputFile:-")
         lb5 = QLabel("")
@@ -274,7 +296,7 @@ class CalculatorSubWindow(NodeEditorWidget):
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
         g_layout.addWidget(lb1,0,0)
-        g_layout.addWidget(variableManager.lb2,0,1)
+        g_layout.addWidget(variableManager.umlb2,0,1)
         g_layout.addWidget(lb3,1,1)
         g_layout.addWidget(lb4, 2, 0)
         g_layout.addWidget(lb5, 2, 1)
@@ -291,6 +313,7 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb6.setDisabled(False)
         fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
         if fname:
+            variableManager.umlb2_txt = variableManager.umlb2.text()
             variableManager.last_name_um = fname[0].split('/')[-1]
             lb5.setText(variableManager.last_name_um)
 
@@ -303,29 +326,34 @@ class CalculatorSubWindow(NodeEditorWidget):
 
         central_widget = QWidget()
         self.window.setCentralWidget(central_widget)
-        items = variableManager.outlist
         lb1 = QLabel("targetField:")
         completer = QCompleter(variableManager.outlist,self)
         completer.setCaseSensitivity(True)
-        variableManager.lb2 = QLineEdit("")
-        variableManager.lb2.setFrame(True)
-        variableManager.lb2.setCompleter(completer)
-        variableManager.selected_items_list = QLabel()
+        variableManager.cdlb2 = QLineEdit("")
+        variableManager.cdlb2.setText(variableManager.cdtxt)
+        variableManager.cdlb2.setFrame(True)
+        variableManager.cdlb2.setCompleter(completer)
+        variableManager.cdselected_items_list = QLabel()
+        variableManager.cdselected_items_list.setText(variableManager.cdlabel_txt)
         lb3 = QLabel("targetValue:-")
-        lb4 = QLineEdit("")
+        variableManager.cdlb4 = QLineEdit("")
+        variableManager.cdlb4.setText(variableManager.cdlb4_txt)
+        variableManager.cdlb4.textChanged.connect(self.cdlb4_textxhage)
         lb5 = QLabel('delimiter:-')
-        lb6 = QLineEdit("")
-        lb6.setFrame(False)
+        variableManager.cdlb6 = QLineEdit("")
+        variableManager.cdlb6.setText(variableManager.cdlb6_txt)
+        variableManager.cdlb6.textChanged.connect(self.cdlb6_textxhage)
+        variableManager.cdlb6.setFrame(False)
         lb7 = QPushButton("Done")
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
         g_layout.addWidget(lb1,0,0)
-        g_layout.addWidget(variableManager.lb2,0,1)
-        g_layout.addWidget(variableManager.selected_items_list,1,1,1,1)
+        g_layout.addWidget(variableManager.cdlb2,0,1)
+        g_layout.addWidget(variableManager.cdselected_items_list,1,1,1,1)
         g_layout.addWidget(lb3,2,0)
-        g_layout.addWidget(lb4, 2, 1)
+        g_layout.addWidget(variableManager.cdlb4, 2, 1)
         g_layout.addWidget(lb5, 3, 0)
-        g_layout.addWidget(lb6,3,1)
+        g_layout.addWidget(variableManager.cdlb6,3,1)
         g_layout.addWidget(lb7,4,1,1,1)
         central_widget.setLayout(g_layout)
         #lb2.clicked.connect(self.filechoose)
@@ -333,14 +361,22 @@ class CalculatorSubWindow(NodeEditorWidget):
         self.window.setWindowModality(Qt.ApplicationModal)
         self.window.show()
         completer.activated.connect(self.on_completer_activated)
+        variableManager.cdlb4_txt = variableManager.cdlb4.text()
+        variableManager.cdlb6_txt = variableManager.cdlb4.text()
 
+    def cdlb4_textxhage(self):
+        variableManager.cdlb4_txt = variableManager.cdlb4.text()
+    def cdlb6_textxhage(self):
+        variableManager.cdlb6_txt = variableManager.cdlb6.text()
     def on_completer_activated(self,text):
-        ln = len(variableManager.selected_items)
-        variableManager.selected_items.append(text)
-        variableManager.selected_items_list.setText(text)
-        variableManager.lb2.clear()
+        ln = len(variableManager.cdselected_items)
+        variableManager.cdselected_items.append(text)
+        variableManager.cdselected_items_list.setText(text)
+       # variableManager.lb2.clear()
         self.completer = QCompleter(variableManager.outlist,self)
-        variableManager.lb2.setCompleter(self.completer)
+        variableManager.cdlb2.setCompleter(self.completer)
+        variableManager.cdlabel_txt = variableManager.cdselected_items_list.text()
+
 
 
 
@@ -424,10 +460,12 @@ class CalculatorSubWindow(NodeEditorWidget):
         if DEBUG_CONTEXT: print("CONTEXT: NODE")
         context_menu = QMenu(self)
         file_name = context_menu.addAction("Action Descriptor")
-        #file_name.setCheckable(True)
+                #file_name.setCheckable(True)
         file_name.triggered.connect(self.CdComboBox)
-        #delimiter = context_menu.addAction("Delimiter")
+        print("variable.lb2 =", type(variableManager.cdlb2))
+                #delimiter = context_menu.addAction("Delimiter")
         action = context_menu.exec_(self.mapToGlobal(event.pos()))
+
     def pressed(self):
         print("clicked")
 

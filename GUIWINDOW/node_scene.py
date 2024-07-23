@@ -358,11 +358,11 @@ class Scene(Serializable):
 
                     from INTERNAL_SCENE.calc_sub_window import variableManager
                     print("Lastname ======== ",variableManager.last_name_lu)
-                    print("lb2",variableManager.lb2)
+                    print("lb2",variableManager.lulb2)
                     if variableManager.last_name_lu == "":
                         f_name[hold].update(act)
                     else:
-                        act["lookUp"] = {"inputFile":variableManager.last_name_lu,"delimiter":variableManager.lb2.text()}
+                        act["lookUp"] = {"inputFile":variableManager.last_name_lu,"delimiter":variableManager.lulb2_txt}
                         f_name[hold].update(act)
                     print(fields)
                 elif opcode[i] == 4:
@@ -372,13 +372,21 @@ class Scene(Serializable):
                     if variableManager.last_name_mf == "":
                         f_name[hold].update(act)
                     else:
-                        act["moveField"] = {"inputFile":variableManager.last_name_mf,"delimiter":variableManager.lb2.text()}
+                        act["moveField"] = {"inputFile":variableManager.last_name_mf,"delimiter":variableManager.mflb2_txt}
                         f_name[hold].update(act)
                     print(fields)
                 elif opcode[i] == 5:
                     act["action"].append("copyData")
-                    #action_cd = {"action": ["copyData"]}
-                    f_name[hold].update(act)
+
+                    from INTERNAL_SCENE.calc_sub_window import variableManager
+                    if variableManager.cdlb2 == "":
+                        f_name[hold].update(act)
+                        print("yess cd")
+                    else:
+                        act["copyData"] = {"targetField": variableManager.cdlabel_txt,
+                                            "targetValue": variableManager.cdlb4_txt,
+                                           "delimiter": variableManager.cdlb6_txt}
+                        f_name[hold].update(act)
                     #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_CopyData.action_cd)
                     print(fields)
                 elif opcode[i] == 6:
@@ -388,7 +396,7 @@ class Scene(Serializable):
                     if variableManager.last_name_um == "":
                         f_name[hold].update(act)
                     else:
-                        act["useMap"] = {"inputFile":variableManager.last_name_um,"delimiter":variableManager.lb2.text()}
+                        act["useMap"] = {"inputFile":variableManager.last_name_um,"delimiter":variableManager.umlb2_txt}
                         f_name[hold].update(act)
 
                     print(fields)

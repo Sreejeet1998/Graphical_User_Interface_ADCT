@@ -72,7 +72,7 @@ class ADCTWindow(NodeEditorWindow):
 
         self.readSettings()
 
-        self.setWindowTitle("GUI Demo")
+        self.setWindowTitle("ADCT CANVAS")
 
     def closeEvent(self, event):
         self.mdiArea.closeAllSubWindows()
