@@ -111,6 +111,34 @@ class NodeEditorWidget(QWidget):
         from INTERNAL_SCENE.calc_sub_window import opcode, variableManager
         print("on new d", variableManager.lb2)
         variableManager.lb2 = ""
+
+        #######################################
+        variableManager.lulb2 = ""
+        variableManager.lulb2_txt = ""
+        variableManager.lulb4 = ""
+
+        variableManager.mflb2 = ""
+        variableManager.mflb2_txt = ""
+        variableManager.mflb4 = ""
+
+        variableManager.umlb2 = ""
+        variableManager.umlb2_txt = ""
+        variableManager.umlb4 = ""
+
+        variableManager.cdlabel_txt = ""
+        variableManager.cdtxt = ""
+        variableManager.last_name_lu = ""
+        variableManager.last_name_mf = ""
+        variableManager.last_name_um = ""
+        variableManager.cdlb2 = ""
+        variableManager.cdlb4 = ""
+        variableManager.cdlb6 = ""
+        variableManager.cdlb4_txt = ""
+        variableManager.cdlb6_txt = ""
+        #outlist = []
+        variableManager.cdselected_items = []
+        variableManager.cdselected_items_list = ''
+        #######################################
         print("on new d", variableManager.lb2)
        # print("on new lastname", variableManager.last_name)
         variableManager.last_name_lu = ""

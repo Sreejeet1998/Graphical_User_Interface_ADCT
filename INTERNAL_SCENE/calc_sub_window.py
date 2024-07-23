@@ -53,27 +53,6 @@ class variableManager:
     outlist = []
     cdselected_items = []
     cdselected_items_list = ''
-# class ActionDescriptor(PyQt5.QtWidgets.QDialog):
-#     def __init__(self,parent=None):
-#         super().__init__(parent)
-#         self.init_gui()
-#         self.show()
-#     def init_gui(self):
-#         self.window = PyQt5.QtWidgets.QWidget()
-#         self.layout = PyQt5.QtWidgets.QGridLayout()
-#         self.setCentralWidget(self.window)
-#         self.window.setLayout(self.layout)
-#
-#         self.ledit = QLineEdit()
-#         self.file_c = QPushButton()
-#         self.file_r = QLabel()
-#
-#         self.layout.addWidget(self.ledit, 0, 0)
-#         self.layout.addWidget(self.file_c, 1, 0)
-#         self.layout.addWidget(self.file_r, 1, 1)
-
-
-        #self.window.show()
 
 class CalculatorSubWindow(NodeEditorWidget):
     def __init__(self):
@@ -207,9 +186,11 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb1 = QLabel("delimiter:")
         variableManager.lulb2 = QLineEdit("")
         variableManager.lulb2.setFrame(False)
+        variableManager.lulb2.setText(variableManager.lulb2_txt)
         lb3 = QPushButton('Chose filename')
         variableManager.lulb4 = QLabel("inputFile:-")
         lb5 = QLabel("")
+        lb5.setText(variableManager.last_name_lu)
         lb6 = QPushButton('Done')
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
@@ -226,6 +207,10 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb6.clicked.connect(self.window.close)
         self.window.setWindowModality(Qt.ApplicationModal)
         self.window.show()
+        variableManager.lulb2.textChanged.connect(self.lulb2_textchanged)
+
+    def lulb2_textchanged(self):
+        variableManager.lulb2_txt = variableManager.lulb2.text()
     def Luclicker(self):
         global lb6
         lb6.setDisabled(False)
@@ -248,9 +233,11 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb1 = QLabel("delimiter:")
         variableManager.mflb2 = QLineEdit("")
         variableManager.mflb2.setFrame(False)
+        variableManager.mflb2.setText(variableManager.mflb2_txt)
         lb3 = QPushButton('Chose filename')
         variableManager.mflb4 = QLabel("inputFile:-")
         lb5 = QLabel("")
+        lb5.setText(variableManager.last_name_mf)
         lb6 = QPushButton('Done')
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
@@ -267,6 +254,10 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb6.clicked.connect(self.window.close)
         self.window.setWindowModality(Qt.ApplicationModal)
         self.window.show()
+        variableManager.mflb2.textChanged.connect(self.mflb2_textchanged)
+
+    def mflb2_textchanged(self):
+        variableManager.mflb2_txt = variableManager.mflb2.text()
     def mfclicker(self):
         global lb6
         lb6.setDisabled(False)
@@ -289,9 +280,11 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb1 = QLabel("delimiter:")
         variableManager.umlb2 = QLineEdit("")
         variableManager.umlb2.setFrame(False)
+        variableManager.umlb2.setText(variableManager.umlb2_txt)
         lb3 = QPushButton('Chose filename')
         lb4 = QLabel("inputFile:-")
         lb5 = QLabel("")
+        lb5.setText(variableManager.last_name_um)
         lb6 = QPushButton('Done')
 
         g_layout = PyQt5.QtWidgets.QGridLayout()
@@ -308,6 +301,10 @@ class CalculatorSubWindow(NodeEditorWidget):
         lb6.clicked.connect(self.window.close)
         self.window.setWindowModality(Qt.ApplicationModal)
         self.window.show()
+        variableManager.umlb2.textChanged.connect(self.umlb2_textchanged)
+
+    def umlb2_textchanged(self):
+        variableManager.umlb2_txt = variableManager.umlb2.text()
     def umclicker(self):
         global lb6
         lb6.setDisabled(False)
