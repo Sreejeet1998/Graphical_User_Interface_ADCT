@@ -2,10 +2,10 @@ import json
 from tkinter import filedialog
 
 import PyQt5
-from PyQt5.QtWidgets import QLabel, QCompleter, QListWidget
+from PyQt5.QtWidgets import QLabel, QCompleter, QListWidget, QGridLayout
 #from PyQt5.QtWidgets.QMainWindow import statusBar
 from PyQt5.QtGui import QIcon, QPixmap, QStandardItem
-from PyQt5.QtCore import QDataStream, QIODevice, Qt
+from PyQt5.QtCore import QDataStream, QIODevice, Qt, QStringListModel
 from PyQt5.QtWidgets import QMessageBox, QAction,QDialog, QPushButton, QGraphicsProxyWidget, QMenu, QComboBox, QVBoxLayout, QWidget, QLineEdit
 
 import GUIWINDOW.node_editor_window
@@ -45,15 +45,25 @@ class variableManager:
     last_name_lu = ""
     last_name_mf = ""
     last_name_um = ""
-    cdlb2 = ""
-    cdlb4 = ""
-    cdlb6 = ""
+    cdlb2 = None
+    cdlb4 = None
+    cdlb6 = None
     cdlb4_txt = ""
     cdlb6_txt = ""
     outlist = []
     cdselected_items = []
     cdselected_items_list = ''
 
+variableManager = variableManager()
+
+class SubstringCompleter(QCompleter):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setFilterMode(Qt.MatchContains)
+        self.setCaseSensitivity(Qt.CaseSensitive)
+
+    def splitPath(self, path):
+        return [path]
 class CalculatorSubWindow(NodeEditorWidget):
     def __init__(self):
         super().__init__()
@@ -214,7 +224,7 @@ class CalculatorSubWindow(NodeEditorWidget):
     def Luclicker(self):
         global lb6
         lb6.setDisabled(False)
-        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
+        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xlsx Files (*.xlsx)")
         if fname:
             variableManager.lulb2_txt = variableManager.lulb2.text()
             variableManager.last_name_lu = fname[0].split('/')[-1]
@@ -261,7 +271,7 @@ class CalculatorSubWindow(NodeEditorWidget):
     def mfclicker(self):
         global lb6
         lb6.setDisabled(False)
-        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
+        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xlsx Files (*.xlsx)")
         if fname:
             variableManager.mflb2_txt = variableManager.mflb2.text()
             variableManager.last_name_mf = fname[0].split('/')[-1]
@@ -308,7 +318,7 @@ class CalculatorSubWindow(NodeEditorWidget):
     def umclicker(self):
         global lb6
         lb6.setDisabled(False)
-        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xls Files (*.xls)")
+        fname = PyQt5.QtWidgets.QFileDialog.getOpenFileName(self,"Choose File", "","CSV Files (*.csv)"+ ";;" +"xlsx Files (*.xlsx)")
         if fname:
             variableManager.umlb2_txt = variableManager.umlb2.text()
             variableManager.last_name_um = fname[0].split('/')[-1]
@@ -318,62 +328,61 @@ class CalculatorSubWindow(NodeEditorWidget):
         self.window = PyQt5.QtWidgets.QMainWindow()
         self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
         self.window.setWindowTitle("Action Descriptor")
-
         self.window.setGeometry(200,200,400,100)
 
         central_widget = QWidget()
         self.window.setCentralWidget(central_widget)
+
         lb1 = QLabel("targetField:")
-        completer = QCompleter(variableManager.outlist,self)
-        completer.setCaseSensitivity(True)
-        variableManager.cdlb2 = QLineEdit("")
-        variableManager.cdlb2.setText(variableManager.cdtxt)
-        variableManager.cdlb2.setFrame(True)
+        variableManager.cdlb2 = QLineEdit()
+        model = QStringListModel(variableManager.outlist)
+        completer = SubstringCompleter(variableManager.cdlb2)
+        completer.setModel(model)
         variableManager.cdlb2.setCompleter(completer)
+        variableManager.cdlb2.setFrame(True)
         variableManager.cdselected_items_list = QLabel()
         variableManager.cdselected_items_list.setText(variableManager.cdlabel_txt)
-        lb3 = QLabel("targetValue:-")
+
+        lb3 = QLabel("targetValue:")
         variableManager.cdlb4 = QLineEdit("")
         variableManager.cdlb4.setText(variableManager.cdlb4_txt)
-        variableManager.cdlb4.textChanged.connect(self.cdlb4_textxhage)
-        lb5 = QLabel('delimiter:-')
+        variableManager.cdlb4.textChanged.connect(self.update_cdlabel4_text)
+
+        lb5 = QLabel("delimiter:")
         variableManager.cdlb6 = QLineEdit("")
         variableManager.cdlb6.setText(variableManager.cdlb6_txt)
-        variableManager.cdlb6.textChanged.connect(self.cdlb6_textxhage)
+        variableManager.cdlb6.textChanged.connect(self.update_cdlabel6_text)
         variableManager.cdlb6.setFrame(False)
-        lb7 = QPushButton("Done")
 
-        g_layout = PyQt5.QtWidgets.QGridLayout()
-        g_layout.addWidget(lb1,0,0)
-        g_layout.addWidget(variableManager.cdlb2,0,1)
-        g_layout.addWidget(variableManager.cdselected_items_list,1,1,1,1)
-        g_layout.addWidget(lb3,2,0)
+        done_button = QPushButton("Done")
+        done_button.clicked.connect(self.window.close)
+
+        g_layout = QGridLayout()
+        g_layout.addWidget(lb1, 0, 0)
+        g_layout.addWidget(variableManager.cdlb2, 0, 1)
+        g_layout.addWidget(variableManager.cdselected_items_list, 1, 1, 1, 1)
+        g_layout.addWidget(lb3, 2, 0)
         g_layout.addWidget(variableManager.cdlb4, 2, 1)
         g_layout.addWidget(lb5, 3, 0)
-        g_layout.addWidget(variableManager.cdlb6,3,1)
-        g_layout.addWidget(lb7,4,1,1,1)
+        g_layout.addWidget(variableManager.cdlb6, 3, 1)
+        g_layout.addWidget(done_button, 4, 1, 1, 1)
         central_widget.setLayout(g_layout)
-        #lb2.clicked.connect(self.filechoose)
-        lb7.clicked.connect(self.window.close)
+
         self.window.setWindowModality(Qt.ApplicationModal)
         self.window.show()
+
         completer.activated.connect(self.on_completer_activated)
-        variableManager.cdlb4_txt = variableManager.cdlb4.text()
-        variableManager.cdlb6_txt = variableManager.cdlb4.text()
 
-    def cdlb4_textxhage(self):
+    def update_cdlabel4_text(self):
         variableManager.cdlb4_txt = variableManager.cdlb4.text()
-    def cdlb6_textxhage(self):
+
+    def update_cdlabel6_text(self):
         variableManager.cdlb6_txt = variableManager.cdlb6.text()
-    def on_completer_activated(self,text):
-        ln = len(variableManager.cdselected_items)
-        variableManager.cdselected_items.append(text)
-        variableManager.cdselected_items_list.setText(text)
-       # variableManager.lb2.clear()
-        self.completer = QCompleter(variableManager.outlist,self)
-        variableManager.cdlb2.setCompleter(self.completer)
-        variableManager.cdlabel_txt = variableManager.cdselected_items_list.text()
 
+    def on_completer_activated(self, text):
+        variableManager.cdselected_items.append(text)
+        variableManager.cdselected_items_list.setText(', '.join(variableManager.cdselected_items))
+        variableManager.cdlabel_txt = variableManager.cdselected_items_list.text()
 
 
 

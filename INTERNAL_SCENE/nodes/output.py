@@ -100,42 +100,84 @@ class CalcNode_UseMap(CalcNode):
 class calcInputContent(QDMNodeContentWidget):
     def initUI(self):
         from INTERNAL_SCENE.calc_sub_window import variableManager
+
         self.edit = QLineEdit(self)
-        completer = QCompleter(variableManager.outlist,self)
-        completer.setCaseSensitivity(True)
+
+        # Set up the completer with substring matching and case-insensitive mode
+        completer = QCompleter(variableManager.outlist, self)
+        completer.setFilterMode(Qt.MatchContains)
+        completer.setCaseSensitivity(Qt.CaseInsensitive)
         self.edit.setCompleter(completer)
+
         self.layout = QGridLayout()
-        self.layout.addWidget(self.edit,0,0)
-        #self.edit.setAlignment(Qt.AlignRight)
-        #self.edit.setObjectName(self.node.content_label_objname)
+        self.layout.addWidget(self.edit, 0, 0)
         self.Nd_number = 6
 
     def serialize(self):
         global n_list
         res = super().serialize()
         v = self.edit.text()
-        n_list.append(v) if v not in n_list else n_list
+        if v not in n_list:
+            n_list.append(v)
         res['value'] = self.edit.text()
         print(n_list)
         return str(res)
 
     def deserialize(self, data, hashmap={}):
         res = super().deserialize(data, hashmap)
-        print("Yes DEserialize - ",res)
+        print("Yes DEserialize - ", res)
         try:
             pattern = r'\w\S*@*.\w'
             value = re.findall(pattern, data)
             print("Value =", value)
-            value = value[-1]
-            #value = data.split()
-            print("Value =",value)
-            self.edit.setText(value)
-            global field_name
-            field_name = self.edit.setText(value)
-            return True & res
+            if value:
+                value = value[-1]
+                self.edit.setText(value)
+                global field_name
+                field_name = self.edit.text()  # Corrected this line to get the text
+                return True & res
         except Exception as e:
             dumpException(e)
         return res
+
+    # def initUI(self):
+    #     from INTERNAL_SCENE.calc_sub_window import variableManager
+    #     self.edit = QLineEdit(self)
+    #     completer = QCompleter(variableManager.outlist,self)
+    #     completer.setCaseSensitivity(True)
+    #     self.edit.setCompleter(completer)
+    #     self.layout = QGridLayout()
+    #     self.layout.addWidget(self.edit,0,0)
+    #     #self.edit.setAlignment(Qt.AlignRight)
+    #     #self.edit.setObjectName(self.node.content_label_objname)
+    #     self.Nd_number = 6
+    #
+    # def serialize(self):
+    #     global n_list
+    #     res = super().serialize()
+    #     v = self.edit.text()
+    #     n_list.append(v) if v not in n_list else n_list
+    #     res['value'] = self.edit.text()
+    #     print(n_list)
+    #     return str(res)
+    #
+    # def deserialize(self, data, hashmap={}):
+    #     res = super().deserialize(data, hashmap)
+    #     print("Yes DEserialize - ",res)
+    #     try:
+    #         pattern = r'\w\S*@*.\w'
+    #         value = re.findall(pattern, data)
+    #         print("Value =", value)
+    #         value = value[-1]
+    #         #value = data.split()
+    #         print("Value =",value)
+    #         self.edit.setText(value)
+    #         global field_name
+    #         field_name = self.edit.setText(value)
+    #         return True & res
+    #     except Exception as e:
+    #         dumpException(e)
+    #     return res
 
 
 @register_node(OP_NODE_INPUT)
