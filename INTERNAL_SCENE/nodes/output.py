@@ -8,7 +8,7 @@ from INTERNAL_SCENE.calc_conf import register_node, OP_NODE_OUTPUT, OP_NODE_INPU
 from INTERNAL_SCENE.calc_node_base import CalcNode, CalcGraphicsNode, CalcContent
 from GUIWINDOW.node_content_widget import QDMNodeContentWidget
 from GUIWINDOW.utils import dumpException
-n_list = []
+
 #res = ''
 field_name = ""
 @register_node(OP_NODE_DELETE)
@@ -107,20 +107,27 @@ class calcInputContent(QDMNodeContentWidget):
         completer = QCompleter(variableManager.outlist, self)
         completer.setFilterMode(Qt.MatchContains)
         completer.setCaseSensitivity(Qt.CaseInsensitive)
+        completer.setCompletionMode(QCompleter.UnfilteredPopupCompletion)
+
+        #model = QStringListModel()
         self.edit.setCompleter(completer)
+        popup = completer.popup()
+        popup.setMinimumWidth(400)
+        popup.setMinimumHeight(150)
 
         self.layout = QGridLayout()
-        self.layout.addWidget(self.edit, 0, 0)
+        self.layout.addWidget(self.edit, 1, 1)
         self.Nd_number = 6
 
     def serialize(self):
-        global n_list
         res = super().serialize()
         v = self.edit.text()
-        if v not in n_list:
-            n_list.append(v)
+        print("Output-Serialize value of V",v)
+        from INTERNAL_SCENE.calc_sub_window import variableManager
+        if v not in variableManager.input_box_name_list:
+            variableManager.input_box_name_list.append(v)
         res['value'] = self.edit.text()
-        print(n_list)
+        print("Output-Seriaize = VM.input_box_name_list =", variableManager.input_box_name_list)
         return str(res)
 
     def deserialize(self, data, hashmap={}):
