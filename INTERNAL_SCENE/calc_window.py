@@ -171,6 +171,7 @@ class ADCTWindow(NodeEditorWindow):
         print(variableManager.outlist)
 
         self.statusBar().showMessage("File %s loaded" % filepath, 5000)
+        self.actNew.setDisabled(False)
 
     #data = onOSFile()
     print("Data:",filepath)

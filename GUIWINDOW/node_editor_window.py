@@ -80,6 +80,7 @@ class NodeEditorWindow(QMainWindow):
         menubar = self.menuBar()
         self.fileMenu = menubar.addMenu('&File')
         self.fileMenu.addAction(self.actNew)
+        self.actNew.setDisabled(True)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.actOpen)
         self.fileMenu.addAction(self.actSave)

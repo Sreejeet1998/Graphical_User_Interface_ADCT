@@ -108,7 +108,7 @@ class NodeEditorWidget(QWidget):
 
     def fileNew(self):
         """Empty the scene (create new file)"""
-        from INTERNAL_SCENE.calc_sub_window import opcode, variableManager
+        from INTERNAL_SCENE.calc_sub_window import variableManager
         print("on new d", variableManager.lb2)
         variableManager.lb2 = ""
 
@@ -145,7 +145,7 @@ class NodeEditorWidget(QWidget):
         variableManager.last_name_mf = ""
         variableManager.last_name_um = ""
         #print("Nammmmmmm", variableManager.last_name)
-        opcode.clear()
+        variableManager.opcode.clear()
         print("clearing")
         fields.clear()
         self.scene.clear()
@@ -159,6 +159,8 @@ class NodeEditorWidget(QWidget):
         :param filename: file to load
         :type filename: ``str``
         """
+        from INTERNAL_SCENE.calc_sub_window import variableManager
+        variableManager.opcode.clear()
         QApplication.setOverrideCursor(Qt.WaitCursor)
         try:
             self.scene.loadFromFile(filename)

@@ -21,11 +21,14 @@ from GUIWINDOW.utils import dumpException
 DEBUG = True
 DEBUG_CONTEXT = False
 num = []
-opcode = []
+
 top = '{"Fields":{'
 n = ""
 lb6 = ""
 class variableManager:
+    input_box_name_list = []
+    opcode = []
+
     lb2 = ""
 
     lulb2 = ""
@@ -45,9 +48,9 @@ class variableManager:
     last_name_lu = ""
     last_name_mf = ""
     last_name_um = ""
-    cdlb2 = None
-    cdlb4 = None
-    cdlb6 = None
+    cdlb2 = ""
+    cdlb4 = ""
+    cdlb6 = ""
     cdlb4_txt = ""
     cdlb6_txt = ""
     outlist = []
@@ -144,9 +147,9 @@ class CalculatorSubWindow(NodeEditorWidget):
             op_code = dataStream.readInt()
             text = dataStream.readQString()
             print(text)
-            global num, opcode
+            global num
             num.append(Id)
-            opcode.append(op_code)
+            variableManager.opcode.append(op_code)
 
             # for i in range(len(opcode)):
             #     global top
@@ -166,7 +169,7 @@ class CalculatorSubWindow(NodeEditorWidget):
             mouse_position = event.pos()
             scene_position = self.scene.grScene.views()[0].mapToScene(mouse_position)
 
-            if DEBUG: print("GOT DROP: [%d] '%s'" % (op_code, text), opcode, "mouse:", mouse_position, "scene:", scene_position, "Number", num)
+            if DEBUG: print("GOT DROP: [%d] '%s'" % (op_code, text), variableManager.opcode, "mouse:", mouse_position, "scene:", scene_position, "Number", num)
 
             try:
                 node = get_class_from_opcode(op_code)(self.scene)
