@@ -330,6 +330,7 @@ class Scene(Serializable):
         fields = {"Fields": {}}
         act = {"action":[]}
         count = 0
+        #p_list = ""
         #variableManager.input_box_name_list.pop(0)
         for i in range(len(variableManager.input_box_name_list)-1):
             if variableManager.input_box_name_list[i] == "":

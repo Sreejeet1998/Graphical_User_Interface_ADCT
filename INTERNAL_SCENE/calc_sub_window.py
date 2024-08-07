@@ -26,6 +26,7 @@ top = '{"Fields":{'
 n = ""
 lb6 = ""
 class variableManager:
+    file_path = ""
     input_box_name_list = []
     opcode = []
 
@@ -337,7 +338,7 @@ class CalculatorSubWindow(NodeEditorWidget):
         self.window.setCentralWidget(central_widget)
 
         lb1 = QLabel("targetField:")
-        variableManager.cdlb2 = QLineEdit()
+        variableManager.cdlb2 = QLineEdit("")
         model = QStringListModel(variableManager.outlist)
         completer = SubstringCompleter(variableManager.cdlb2)
         completer.setModel(model)

@@ -228,7 +228,9 @@ class NodeEditorWindow(QMainWindow):
         if self.notSaved():
             current_nodeeditor = self.getCurrentNodeEditorWidget()
             if current_nodeeditor is not None:
-                fname, filter = QFileDialog.getSaveFileName(self, 'Save graph to file', "","JSON Files (*.json)"+ ";;" + "All Files (*)")
+                from INTERNAL_SCENE.calc_sub_window import variableManager
+                fname = variableManager.file_path
+                #fname, filter = QFileDialog.getSaveFileName(self, 'Save graph to file', "","JSON Files (*.json)"+ ";;" + "All Files (*)")
                 if fname == '': return False
 
                 self.onBeforeSaveAs(current_nodeeditor, fname)

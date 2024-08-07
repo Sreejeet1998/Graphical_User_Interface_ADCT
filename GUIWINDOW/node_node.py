@@ -510,6 +510,7 @@ class Node(Serializable):
         for socket in self.inputs: inputs.append(socket.serialize())
         for socket in self.outputs: outputs.append(socket.serialize())
         ser_content = self.content.serialize() if isinstance(self.content, Serializable) else {}
+        from INTERNAL_SCENE.calc_sub_window import variableManager
         return OrderedDict([
             ('id', self.id),
             ('title', self.title),
@@ -518,6 +519,16 @@ class Node(Serializable):
             ('inputs', inputs),
             ('outputs', outputs),
             ('content', ser_content),
+            ('lulb2_txt', variableManager.lulb2_txt),
+            ('last_name_lu', variableManager.last_name_lu),
+            ('mflb2_txt',variableManager.mflb2_txt),
+            ('last_name_mf',variableManager.last_name_mf),
+            ('umlb2_txt',variableManager.umlb2_txt),
+            ('last_name_um',variableManager.last_name_um),
+            ('cdlabel_txt',variableManager.cdlabel_txt),
+            ('cdlb4_txt',variableManager.cdlb4_txt),
+            ('cdlb6_txt',variableManager.cdlb6_txt),
+            ('input_box_namelist',variableManager.input_box_name_list)
         ])
 
     def deserialize(self, data: dict, hashmap: dict={}, restore_id: bool=True, *args, **kwargs) -> bool:
@@ -527,6 +538,22 @@ class Node(Serializable):
 
             self.setPos(data['pos_x'], data['pos_y'])
             self.title = data['title']
+
+            from INTERNAL_SCENE.calc_sub_window import variableManager
+            variableManager.lulb2_txt = data['lulb2_txt']
+            variableManager.last_name_lu = data['last_name_lu']
+
+            variableManager.mflb2_txt = data['mflb2_txt']
+            variableManager.last_name_mf = data['last_name_mf']
+
+            variableManager.umlb2_txt = data['umlb2_txt']
+            variableManager.last_name_um = data['last_name_um']
+
+            variableManager.cdlabel_txt = data['cdlabel_txt']
+            variableManager.cdlb4_txt = data['cdlb4_txt']
+            variableManager.cdlb6_txt = data['cdlb6_txt']
+
+            variableManager.input_box_name_list = data['input_box_namelist']
 
             data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000 )
             data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000 )
