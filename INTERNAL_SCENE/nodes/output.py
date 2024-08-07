@@ -8,7 +8,7 @@ from INTERNAL_SCENE.calc_conf import register_node, OP_NODE_OUTPUT, OP_NODE_INPU
 from INTERNAL_SCENE.calc_node_base import CalcNode, CalcGraphicsNode, CalcContent
 from GUIWINDOW.node_content_widget import QDMNodeContentWidget
 from GUIWINDOW.utils import dumpException
-
+n_list = []
 #res = ''
 field_name = ""
 @register_node(OP_NODE_DELETE)
@@ -107,28 +107,20 @@ class calcInputContent(QDMNodeContentWidget):
         completer = QCompleter(variableManager.outlist, self)
         completer.setFilterMode(Qt.MatchContains)
         completer.setCaseSensitivity(Qt.CaseInsensitive)
-        completer.setCompletionMode(QCompleter.UnfilteredPopupCompletion)
-
-        #model = QStringListModel()
         self.edit.setCompleter(completer)
-        popup = completer.popup()
-        popup.setMinimumWidth(400)
-        popup.setMinimumHeight(150)
 
         self.layout = QGridLayout()
-        self.layout.addWidget(self.edit, 1, 1)
+        self.layout.addWidget(self.edit, 0, 0)
         self.Nd_number = 6
 
     def serialize(self):
+        global n_list
         res = super().serialize()
         v = self.edit.text()
-        print("Output-Serialize value of V",v)
-        from INTERNAL_SCENE.calc_sub_window import variableManager
-        if v not in variableManager.input_box_name_list:
-            variableManager.input_box_name_list.append(v)
+        if v not in n_list:
+            n_list.append(v)
         res['value'] = self.edit.text()
-        print("Output-Seriaize = VM.input_box_name_list =", res)
-        print("Output-Seriaize = VM.input_box_name_list =", id(res))
+        print(n_list)
         return str(res)
 
     def deserialize(self, data, hashmap={}):
@@ -225,32 +217,10 @@ class CalcNode_Input(CalcNode):
 
 class CalcOutputContent(QDMNodeContentWidget):
     def initUI(self):
-        self.FCButton = QPushButton("Choose File",self)
-        self.FCButton.clicked.connect(self.openfiledialog)
-
         self.lbl = QLabel("", self)
         self.lbl.setAlignment(Qt.AlignCenter)
         self.lbl.setObjectName(self.node.content_label_objname)
-
-        self.lout = QGridLayout()
-        self.lout.addWidget(self.FCButton,0,0)
-        self.lout.addWidget(self.lbl,1,0)
-        self.setLayout(self.lout)
-
         self.Nd_number = 7
-
-    def openfiledialog(self):
-        from INTERNAL_SCENE.calc_sub_window import variableManager
-        variableManager.file_path = QFileDialog.getSaveFileName(self, "save file")
-        variableManager.file_path = str(variableManager.file_path[0])
-        if variableManager.file_path:
-            #file_path = str(file_path[0])
-            pattern = r'\b\w+\b'
-            value = re.findall(pattern, variableManager.file_path)
-            print("Output-openFiledialog", value[-1])
-            #print(type(variableManager.file_path))
-            #print(file_path[0])
-            self.lbl.setText(value[-1])
     def serialize(self):
         res = super().serialize()
         res['value'] = self.lbl.text()
