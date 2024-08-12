@@ -528,7 +528,8 @@ class Node(Serializable):
             ('cdlabel_txt',variableManager.cdlabel_txt),
             ('cdlb4_txt',variableManager.cdlb4_txt),
             ('cdlb6_txt',variableManager.cdlb6_txt),
-            ('input_box_namelist',variableManager.input_box_name_list)
+            ('input_box_namelist',variableManager.input_box_name_list),
+            ('filepath',variableManager.file_path)
         ])
 
     def deserialize(self, data: dict, hashmap: dict={}, restore_id: bool=True, *args, **kwargs) -> bool:
@@ -540,6 +541,7 @@ class Node(Serializable):
             self.title = data['title']
 
             from INTERNAL_SCENE.calc_sub_window import variableManager
+            variableManager.file_path = data['filepath']
             variableManager.lulb2_txt = data['lulb2_txt']
             variableManager.last_name_lu = data['last_name_lu']
 

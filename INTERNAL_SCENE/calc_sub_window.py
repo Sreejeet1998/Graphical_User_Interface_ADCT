@@ -21,12 +21,12 @@ from GUIWINDOW.utils import dumpException
 DEBUG = True
 DEBUG_CONTEXT = False
 num = []
-opcode = []
 top = '{"Fields":{'
 n = ""
 lb6 = ""
 class variableManager:
     lb2 = ""
+    opcode = []
 
     lulb2 = ""
     lulb2_txt = ""
@@ -45,14 +45,28 @@ class variableManager:
     last_name_lu = ""
     last_name_mf = ""
     last_name_um = ""
-    cdlb2 = None
-    cdlb4 = None
-    cdlb6 = None
+    last_name_add = ""
+
+    cdlb2 = ""
+    cdlb4 = ""
+    cdlb6 = ""
     cdlb4_txt = ""
     cdlb6_txt = ""
+
+    addlb2 = ""
+    addlb2_txt = ""
+    update_addlabel2_text = ""
+    addlb4 = ""
+    addlb4_txt = ""
+    update_addlabel4_text = ""
+
     outlist = []
     cdselected_items = []
     cdselected_items_list = ''
+
+    input_box_name_list = []
+
+    file_path = ""
 
 variableManager = variableManager()
 
@@ -144,9 +158,9 @@ class CalculatorSubWindow(NodeEditorWidget):
             op_code = dataStream.readInt()
             text = dataStream.readQString()
             print(text)
-            global num, opcode
+            global num
             num.append(Id)
-            opcode.append(op_code)
+            variableManager.opcode.append(op_code)
 
             # for i in range(len(opcode)):
             #     global top
@@ -166,7 +180,7 @@ class CalculatorSubWindow(NodeEditorWidget):
             mouse_position = event.pos()
             scene_position = self.scene.grScene.views()[0].mapToScene(mouse_position)
 
-            if DEBUG: print("GOT DROP: [%d] '%s'" % (op_code, text), opcode, "mouse:", mouse_position, "scene:", scene_position, "Number", num)
+            if DEBUG: print("GOT DROP: [%d] '%s'" % (op_code, text), variableManager.opcode, "mouse:", mouse_position, "scene:", scene_position, "Number", num)
 
             try:
                 node = get_class_from_opcode(op_code)(self.scene)
@@ -384,6 +398,39 @@ class CalculatorSubWindow(NodeEditorWidget):
         variableManager.cdselected_items_list.setText(', '.join(variableManager.cdselected_items))
         variableManager.cdlabel_txt = variableManager.cdselected_items_list.text()
 
+    def addComboBox(self):
+        self.window = PyQt5.QtWidgets.QMainWindow()
+        self.window.setWindowFlags(PyQt5.QtCore.Qt.WindowCloseButtonHint)
+        self.window.setWindowTitle("Action Descriptor")
+        self.window.setGeometry(200,200,400,100)
+
+        central_widget = QWidget()
+        self.window.setCentralWidget(central_widget)
+
+        lb1 = QLabel("targetValue:")
+        variableManager.addlb2 = QLineEdit("")
+        variableManager.addlb2.setText(variableManager.addlb2_txt)
+#        variableManager.addlb2.textChanged.connect(self.update_addlabel2_text)
+
+        lb3 = QLabel("delimiter:")
+        variableManager.addlb4 = QLineEdit("")
+        variableManager.addlb4.setText(variableManager.addlb4_txt)
+ #       variableManager.addlb4.textChanged.connect(self.update_addlabel4_text)
+        variableManager.addlb4.setFrame(False)
+
+        done_button = QPushButton("Done")
+        done_button.clicked.connect(self.window.close)
+
+        g_layout = QGridLayout()
+        g_layout.addWidget(lb1, 0, 0)
+        g_layout.addWidget(variableManager.addlb2, 0, 1)
+        g_layout.addWidget(lb3, 2, 0)
+        g_layout.addWidget(variableManager.addlb4, 2, 1)
+        g_layout.addWidget(done_button, 4, 1, 1, 1)
+        central_widget.setLayout(g_layout)
+
+        self.window.setWindowModality(Qt.ApplicationModal)
+        self.window.show()
 
 
     def contextMenuEvent(self, event):
@@ -400,6 +447,10 @@ class CalculatorSubWindow(NodeEditorWidget):
             if hasattr(n, 'action_lu'):
                 self.LuADContextMenu(event)
                 lookup_filename = variableManager.last_name_lu
+                print(lookup_filename)
+            elif hasattr(n, 'action_add'):
+                self.addADContextMenu(event)
+                lookup_filename = variableManager.last_name_add
                 print(lookup_filename)
             elif hasattr(n, 'action_mf'):
                 self.MfADContextMenu(event)
@@ -459,6 +510,15 @@ class CalculatorSubWindow(NodeEditorWidget):
         file_name = context_menu.addAction("Action Descriptor")
         #file_name.setCheckable(True)
         file_name.triggered.connect(self.UmComboBox)
+        #delimiter = context_menu.addAction("Delimiter")
+        action = context_menu.exec_(self.mapToGlobal(event.pos()))
+
+    def addADContextMenu(self, event):
+        if DEBUG_CONTEXT: print("CONTEXT: NODE")
+        context_menu = QMenu(self)
+        file_name = context_menu.addAction("Action Descriptor")
+        #file_name.setCheckable(True)
+        file_name.triggered.connect(self.addComboBox)
         #delimiter = context_menu.addAction("Delimiter")
         action = context_menu.exec_(self.mapToGlobal(event.pos()))
 

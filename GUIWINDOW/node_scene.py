@@ -18,6 +18,7 @@ from GUIWINDOW.node_node import Node
 from GUIWINDOW.node_edge import Edge
 from GUIWINDOW.node_scene_history import SceneHistory
 from GUIWINDOW.node_scene_clipboard import SceneClipboard
+
 from INTERNAL_SCENE.nodes.output import calcInputContent
 from INTERNAL_SCENE.calc_conf import CALC_NODES
 DEBUG_REMOVE_WARNINGS = False
@@ -320,8 +321,8 @@ class Scene(Serializable):
 
 
     def dumpJson(self,filename:str):
-        from INTERNAL_SCENE.nodes.output import n_list
-        from INTERNAL_SCENE.calc_sub_window import opcode
+        #from INTERNAL_SCENE.nodes.output import n_list
+        from INTERNAL_SCENE.calc_sub_window import variableManager
         from INTERNAL_SCENE.calc_window import filepath
         nodes, edges = [], []
         for node in self.nodes: nodes.append(node.serialize())
@@ -330,17 +331,21 @@ class Scene(Serializable):
         fields = {"Fields": {}}
         act = {"action":[]}
         count = 0
-        n_list.pop(0)
-        p_list = n_list
+        for i in range(len(variableManager.input_box_name_list)-1):
+            if variableManager.input_box_name_list[i] == "":
+                variableManager.input_box_name_list.pop(i)
+                p_list = variableManager.input_box_name_list
+            else:
+                p_list = variableManager.input_box_name_list
         #print("yeah",outlist)
         if len(edges) > 1:
-            for i in range(len(opcode)):
+            for i in range(len(variableManager.opcode)):
                 # global fields
                 print("it is fiilepath:",filepath)
                 #outlist = json.dumps(outlist)
                 #print("Outlist",outlist)
                 #finame = outlist[i]
-                if opcode[i] == 1:
+                if variableManager.opcode[i] == 1:
                     count = count+1
                     #hold = outlist[i]
                     #f_name = {outlist[i]:{}}
@@ -351,9 +356,9 @@ class Scene(Serializable):
                     fields["Fields"].update(f_name)
                     print(fields)
                     print("count",count)
-                elif opcode[i] == 2:
+                elif variableManager.opcode[i] == 2:
                     pass
-                elif opcode[i] == 3:
+                elif variableManager.opcode[i] == 3:
                     act["action"].append("lookUp")
 
                     from INTERNAL_SCENE.calc_sub_window import variableManager
@@ -365,7 +370,7 @@ class Scene(Serializable):
                         act["lookUp"] = {"inputFile":variableManager.last_name_lu,"delimiter":variableManager.lulb2_txt}
                         f_name[hold].update(act)
                     print(fields)
-                elif opcode[i] == 4:
+                elif variableManager.opcode[i] == 4:
                     act["action"].append("moveField")
 
                     from INTERNAL_SCENE.calc_sub_window import variableManager
@@ -375,11 +380,11 @@ class Scene(Serializable):
                         act["moveField"] = {"inputFile":variableManager.last_name_mf,"delimiter":variableManager.mflb2_txt}
                         f_name[hold].update(act)
                     print(fields)
-                elif opcode[i] == 5:
+                elif variableManager.opcode[i] == 5:
                     act["action"].append("copyData")
 
                     from INTERNAL_SCENE.calc_sub_window import variableManager
-                    if variableManager.cdlb2 == "":
+                    if variableManager.cdlabel_txt == "":
                         f_name[hold].update(act)
                         print("yess cd")
                     else:
@@ -389,7 +394,7 @@ class Scene(Serializable):
                         f_name[hold].update(act)
                     #fields = "{}{}".format(fields, INTERNAL_SCENE.nodes.output.CalcNode_CopyData.action_cd)
                     print(fields)
-                elif opcode[i] == 6:
+                elif variableManager.opcode[i] == 6:
                     act["action"].append("useMap")
                     from INTERNAL_SCENE.calc_sub_window import variableManager
 
@@ -400,7 +405,7 @@ class Scene(Serializable):
                         f_name[hold].update(act)
 
                     print(fields)
-                elif opcode[i] == 7:
+                elif variableManager.opcode[i] == 7:
                     act["action"].append("deleteField")
                     #action_del = {"action": ["deleteField"]}
                     f_name[hold].update(act)
@@ -502,6 +507,7 @@ class Scene(Serializable):
 
 
     def serialize(self) -> OrderedDict:
+        from INTERNAL_SCENE.calc_sub_window import variableManager
         nodes, edges = [], []
         for node in self.nodes: nodes.append(node.serialize())
         for edge in self.edges: edges.append(edge.serialize())
@@ -513,6 +519,7 @@ class Scene(Serializable):
             ('scene_height', self.scene_height),
             ('nodes', nodes),
             ('edges', edges),
+            ('outlist', variableManager.outlist)
         ])
 
     #def serialized(self) -> OrderedDict:
@@ -536,6 +543,7 @@ class Scene(Serializable):
         ## Instead of recreating all the nodes, reuse existing ones...
         # get list of all current nodes:
         all_nodes = self.nodes.copy()
+        print("node_scene-deserialize--Deserialized = ", all_nodes)
 
         # go through deserialized nodes:
         for node_data in data['nodes']:
@@ -551,6 +559,9 @@ class Scene(Serializable):
                     new_node = self.getNodeClassFromData(node_data)(self)
                     new_node.deserialize(node_data, hashmap, restore_id, *args, **kwargs)
                     new_node.onDeserialized(node_data)
+                    from INTERNAL_SCENE.calc_sub_window import variableManager
+                    variableManager.opcode.append(node_data['op_code'])
+                    print('On load VM.op_code = ', variableManager.opcode)
                     # print("New node for", node_data['title'])
                 except:
                     dumpException()
@@ -575,7 +586,7 @@ class Scene(Serializable):
         ## Instead of recreating all the edges, reuse existing ones...
         # get list of all current edges:
         all_edges = self.edges.copy()
-
+        variableManager.outlist = data['outlist']
         # go through deserialized edges:
         for edge_data in data['edges']:
             # can we find this node in the scene?

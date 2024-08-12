@@ -4,11 +4,10 @@ import re
 
 from GUIWINDOW.node_node import Node
 from INTERNAL_SCENE.calc_conf import register_node, OP_NODE_OUTPUT, OP_NODE_INPUT, OP_NODE_DELETE, OP_NODE_LOOKUP, \
-    OP_NODE_MOVEFIELD, OP_NODE_COPYDATA, OP_NODE_USEMAP
+    OP_NODE_MOVEFIELD, OP_NODE_COPYDATA, OP_NODE_USEMAP, OP_NODE_ADD
 from INTERNAL_SCENE.calc_node_base import CalcNode, CalcGraphicsNode, CalcContent
 from GUIWINDOW.node_content_widget import QDMNodeContentWidget
 from GUIWINDOW.utils import dumpException
-n_list = []
 #res = ''
 field_name = ""
 @register_node(OP_NODE_DELETE)
@@ -85,6 +84,16 @@ class CalcNode_UseMap(CalcNode):
     def __init__(self, scene):
         super().__init__(scene, inputs=[1], outputs=[2])
 
+@register_node(OP_NODE_ADD)
+class CalcNode_add(CalcNode):
+    op_code = OP_NODE_ADD
+    op_title = "add"
+    content_label_objname = "calc_node_add"
+    Nd_number = 8
+    action_add = ""
+    def __init__(self, scene):
+        super().__init__(scene, inputs=[1], outputs=[2])
+
 #@register_node(OP_NODE_INPUT)
 #class CalcNode_Input(CalcNode):
     #context_menu = QMenu()
@@ -107,20 +116,25 @@ class calcInputContent(QDMNodeContentWidget):
         completer = QCompleter(variableManager.outlist, self)
         completer.setFilterMode(Qt.MatchContains)
         completer.setCaseSensitivity(Qt.CaseInsensitive)
+        completer.setCompletionMode(QCompleter.UnfilteredPopupCompletion)
         self.edit.setCompleter(completer)
 
+        popup = completer.popup()
+        popup.setMinimumWidth(400)
+        popup.setMinimumHeight(150)
+
         self.layout = QGridLayout()
-        self.layout.addWidget(self.edit, 0, 0)
+        self.layout.addWidget(self.edit, 1, 1)
         self.Nd_number = 6
 
     def serialize(self):
-        global n_list
         res = super().serialize()
         v = self.edit.text()
-        if v not in n_list:
-            n_list.append(v)
+        from INTERNAL_SCENE.calc_sub_window import variableManager
+        if v not in variableManager.input_box_name_list:
+            variableManager.input_box_name_list.append(v)
         res['value'] = self.edit.text()
-        print(n_list)
+        print("Output-Serialize = VM.input_box_name_list = ", variableManager.input_box_name_list)
         return str(res)
 
     def deserialize(self, data, hashmap={}):
@@ -217,10 +231,28 @@ class CalcNode_Input(CalcNode):
 
 class CalcOutputContent(QDMNodeContentWidget):
     def initUI(self):
-        self.lbl = QLabel("", self)
+        layout = QVBoxLayout()
+
+        self.file_btn = QPushButton("Create script file", self)
+        self.file_btn.clicked.connect(self.choosefile)
+        layout.addWidget(self.file_btn)
+
+        self.lbl = QLabel("",self)
         self.lbl.setAlignment(Qt.AlignCenter)
         self.lbl.setObjectName(self.node.content_label_objname)
+        layout.addWidget(self.lbl)
+
+        self.setLayout(layout)
         self.Nd_number = 7
+
+    def choosefile(self):
+        from INTERNAL_SCENE.calc_sub_window import variableManager
+        variableManager.file_path = QFileDialog.getSaveFileName(self, "Create File","JSON Files (*.json);;All Files (*)")
+        variableManager.file_path = str(variableManager.file_path[0])
+        if variableManager.file_path:
+            pattern = r'\b\w+\b'
+            filename = re.findall(pattern,variableManager.file_path)
+            self.lbl.setText(filename[-1])
     def serialize(self):
         res = super().serialize()
         res['value'] = self.lbl.text()
