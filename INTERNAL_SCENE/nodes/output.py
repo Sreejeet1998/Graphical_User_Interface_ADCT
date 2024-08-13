@@ -247,12 +247,13 @@ class CalcOutputContent(QDMNodeContentWidget):
 
     def choosefile(self):
         from INTERNAL_SCENE.calc_sub_window import variableManager
-        variableManager.file_path = QFileDialog.getSaveFileName(self, "Create File","JSON Files (*.json);;All Files (*)")
+        variableManager.file_path = QFileDialog.getSaveFileName(self, "Create File","","JSON Files (*.json)"+";;"+"All Files(*)")
         variableManager.file_path = str(variableManager.file_path[0])
         if variableManager.file_path:
             pattern = r'\b\w+\b'
             filename = re.findall(pattern,variableManager.file_path)
             self.lbl.setText(filename[-1])
+
     def serialize(self):
         res = super().serialize()
         res['value'] = self.lbl.text()
